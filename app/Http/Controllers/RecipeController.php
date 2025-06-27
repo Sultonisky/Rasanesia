@@ -27,6 +27,7 @@ class RecipeController extends Controller
             'description' => 'required',
             'ingredients' => 'required',
             'steps' => 'required',
+            'province' => 'nullable',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -61,6 +62,7 @@ class RecipeController extends Controller
             'description' => 'required',
             'ingredients' => 'required',
             'steps' => 'required',
+            'province' => 'nullable',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 

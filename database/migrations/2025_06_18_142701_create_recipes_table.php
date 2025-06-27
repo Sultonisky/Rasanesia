@@ -18,7 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('ingredients'); // Bisa juga pakai tabel terpisah
             $table->text('steps');
-            $table->string('foto')->nullable();
+            $table->string('province')->nullable();
+            $table->text('foto')->nullable();
             $table->timestamps();
         });
     }

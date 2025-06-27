@@ -52,6 +52,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingIngredients">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
+                            🥕 Bahan-Bahan
+                        </button>
+                    </h2>
+                    <div id="collapseIngredients" class="accordion-collapse collapse" aria-labelledby="headingIngredients"
+                        data-bs-parent="#accordionRecipe">
+                        <div class="accordion-body">
+                            <pre style="white-space: pre-wrap;">{{ $recipe->province }}</pre>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingSteps">

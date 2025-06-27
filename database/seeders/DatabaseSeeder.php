@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'foto' => '',
         ]);
 
-        User::factory()->count(10)->create(); // pastikan ada user
-        Recipe::factory()->count(100)->create();
+        User::factory()->count(100)->create(); // pastikan ada user
+        // Recipe::factory()->count(100)->create();
     }
 }

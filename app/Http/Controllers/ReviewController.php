@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Recipe;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -11,7 +14,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = Review::with('recipe', 'user')->get();
+        return view('backend.reviews.index', compact('reviews'));
     }
 
     /**
@@ -19,7 +23,9 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $recipes = Recipe::all();
+        $users = User::all();
+        return view('backend.reviews.create', compact('recipes', 'users'));
     }
 
     /**
@@ -27,7 +33,15 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vaidateData = $request->validate([
+            'recipe_id' => 'required|exists:recipes,id',
+            'user_id' => 'required|exists:users,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:255',
+        ]);
+
+        Review::create($vaidateData);
+        return redirect()->route('reviews.index')->with('success', 'Review berhasil ditambahkan.');
     }
 
     /**
@@ -35,7 +49,8 @@ class ReviewController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $review = Review::with('recipe', 'user')->findOrFail($id);
+        return view('backend.reviews.show', compact('review'));
     }
 
     /**
@@ -43,7 +58,8 @@ class ReviewController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $review = Review::with('recipe', 'user')->findOrFail($id);
+        return view('backend.reviews.edit', compact('review'));
     }
 
     /**
@@ -51,7 +67,15 @@ class ReviewController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateData = $request->validate([
+            'recipe_id' => 'required|exists:recipes,id',
+            'user_id' => 'required|exists:users,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:255',
+        ]);
+
+        Review::findOrFail($id)->update($validateData);
+        return redirect()->route('reviews.index')->with('success', 'Review berhasil diperbarui.');
     }
 
     /**
@@ -59,6 +83,8 @@ class ReviewController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Review::findOrFail($id)->delete();
+
+        return redirect()->route('reviews.index')->with('success', 'Review berhasil dihapus.');
     }
 }
