@@ -17,7 +17,12 @@ class RecipeController extends Controller
 
     public function create()
     {
-        return view('backend.recipes.create');
+        // Cek apakah user adalah admin atau user biasa
+        if (Auth::user()->role === 'admin') {
+            return view('backend.recipes.create');
+        } else {
+            return view('frontend.recipes.create');
+        }
     }
 
     public function store(Request $request)
@@ -40,7 +45,12 @@ class RecipeController extends Controller
 
         Recipe::create($data);
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil ditambahkan.');
+        // Redirect berdasarkan role user
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('recipes.index')->with('success', 'Resep berhasil ditambahkan.');
+        } else {
+            return redirect()->route('main-home')->with('success', 'Resep berhasil ditambahkan!');
+        }
     }
 
     public function show($id)
@@ -89,5 +99,14 @@ class RecipeController extends Controller
         $recipe->delete();
 
         return redirect()->route('recipes.index')->with('success', 'Resep berhasil dihapus.');
+    }
+
+    public function myRecipes()
+    {
+        $recipes = Recipe::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+            
+        return view('frontend.recipes.my-recipes', compact('recipes'));
     }
 }

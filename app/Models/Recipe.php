@@ -27,4 +27,14 @@ class Recipe extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AdminFavoriteController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Auth\Events\Verified;
 use App\Models\User;
@@ -22,9 +24,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// ROUTE UTAMA - Tanpa autentikasi
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome'); // Halaman welcome
+Route::get('/main-home', [HomeController::class, 'mainHome'])->name('main-home'); // Halaman utama tanpa login
 
 // ROUTE AUTENTIKASI (Tanpa login)
 Route::get('backend/login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
@@ -40,6 +42,16 @@ Route::post('backend/forgot-password', [AuthController::class, 'sendResetLinkEma
 Route::get('backend/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset'); // menampilkan halaman reset password
 Route::post('backend/reset-password', [AuthController::class, 'updatePassword'])->name('password.update'); // update password baru
 
+// ROUTE FITUR INTERAKTIF - Memerlukan autentikasi
+Route::middleware(['require.auth'])->group(function () {
+    // Favorite Routes
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites/check', [FavoriteController::class, 'check'])->name('favorites.check');
+});
+
+// ROUTE ADMIN - Memerlukan autentikasi admin
 Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return view('backend.dashboard.dashboard');
@@ -47,11 +59,36 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('recipes', RecipeController::class);
     Route::resource('reviews', ReviewController::class);
+    Route::resource('admin-favorites', AdminFavoriteController::class)->names([
+        'index' => 'admin.favorites.index',
+        'create' => 'admin.favorites.create',
+        'store' => 'admin.favorites.store',
+        'show' => 'admin.favorites.show',
+        'edit' => 'admin.favorites.edit',
+        'update' => 'admin.favorites.update',
+        'destroy' => 'admin.favorites.destroy',
+    ]);
 });
 
+// ROUTE USER - Memerlukan autentikasi user
 Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-    Route::get('/main-home', [HomeController::class, 'mainHome'])->name('main-home');
+    
+    // Frontend Navigation Routes
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+    Route::get('/search', [HomeController::class, 'search'])->name('search');
+    Route::get('/all-recipes', [HomeController::class, 'allRecipes'])->name('all-recipes');
+    Route::get('/archive', [HomeController::class, 'archive'])->name('archive');
+    
+    // Recipe Routes untuk User
+    Route::resource('recipes', RecipeController::class)->except(['index', 'show']);
+    Route::get('/my-recipes', [RecipeController::class, 'myRecipes'])->name('my-recipes');
+    
+    // Saved page
+    Route::get('/saved', [FavoriteController::class, 'index'])->name('saved');
+    
+    // Logout route accessible from frontend
+    Route::post('/logout', [AuthController::class, 'logout'])->name('frontend.logout');
 });
 
 // Route verifikasi email Laravel

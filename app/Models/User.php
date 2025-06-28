@@ -55,6 +55,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Review::class);
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function favoriteRecipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'favorites');
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new \App\Notifications\CustomVerifyEmail);

@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\RoleHandleMiddleware;
+use App\Http\Middleware\RedirectIfNotAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'role' => RoleHandleMiddleware::class,
+        'require.auth' => RedirectIfNotAuthenticated::class,
     ];
 }

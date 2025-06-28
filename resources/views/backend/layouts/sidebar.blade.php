@@ -36,6 +36,12 @@
             <span>Reviews</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.favorites.index') }}">
+            <i class="fas fa-fw fa-heart"></i>
+            <span>Favorites</span></a>
+    </li>
+
     <!-- Divider -->
 
     <hr class="sidebar-divider d-none d-md-block">

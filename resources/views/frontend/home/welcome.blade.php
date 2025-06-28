@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/homepage.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/img/chef_hat.png') }}" type="image/x-icon">
-    <title>Rasanesia - Home</title>
+    <title>Rasanesia - Welcome</title>
 </head>
 
 <body>
