@@ -1,0 +1,49 @@
+/* Custom Pagination Styles for Rasanesia */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    padding: 10px 15px;
+    border: 1.5px solid #c7d3b0 !important;
+    background: #fff !important;
+    color: #a3b48b !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+}
+
+.page-link:hover {
+    background: #a3b48b !important;
+    color: #fff !important;
+    border-color: #a3b48b !important;
+    text-decoration: none !important;
+}
+
+.page-item.active .page-link {
+    background: #a3b48b !important;
+    color: #fff !important;
+    border-color: #a3b48b !important;
+}
+
+.page-item.disabled .page-link {
+    color: #bfc9b0 !important;
+    pointer-events: none !important;
+    background: #f6fff8 !important;
+    border-color: #c7d3b0 !important;
+} 

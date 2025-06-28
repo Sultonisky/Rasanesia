@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\FrontendRecipeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FrontendReviewController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AdminFavoriteController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -27,6 +29,11 @@ use Illuminate\Http\Request;
 // ROUTE UTAMA - Tanpa autentikasi
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome'); // Halaman welcome
 Route::get('/main-home', [HomeController::class, 'mainHome'])->name('main-home'); // Halaman utama tanpa login
+
+// ROUTE FITUR PUBLIK - Tanpa autentikasi
+Route::get('/all-recipes', [HomeController::class, 'allRecipes'])->name('all-recipes');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/recipe/{id}', [HomeController::class, 'showRecipe'])->name('recipe.show');
 
 // ROUTE AUTENTIKASI (Tanpa login)
 Route::get('backend/login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
@@ -57,7 +64,7 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
         return view('backend.dashboard.dashboard');
     })->name('dashboard');
     Route::resource('users', UserController::class);
-    Route::resource('recipes', RecipeController::class);
+    Route::resource('recipes', RecipeController::class); // Backend RecipeController untuk admin
     Route::resource('reviews', ReviewController::class);
     Route::resource('admin-favorites', AdminFavoriteController::class)->names([
         'index' => 'admin.favorites.index',
@@ -76,16 +83,24 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     
     // Frontend Navigation Routes
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-    Route::get('/search', [HomeController::class, 'search'])->name('search');
-    Route::get('/all-recipes', [HomeController::class, 'allRecipes'])->name('all-recipes');
+    Route::put('/profile/update', [HomeController::class, 'updateProfile'])->name('profile.update');
     Route::get('/archive', [HomeController::class, 'archive'])->name('archive');
     
-    // Recipe Routes untuk User
-    Route::resource('recipes', RecipeController::class)->except(['index', 'show']);
-    Route::get('/my-recipes', [RecipeController::class, 'myRecipes'])->name('my-recipes');
+    // Frontend Recipe Routes untuk User
+    Route::resource('frontend-recipes', FrontendRecipeController::class)->names([
+        'create' => 'recipes.create',
+        'store' => 'recipes.store',
+        'edit' => 'recipes.edit',
+        'update' => 'recipes.update',
+        'destroy' => 'recipes.destroy',
+    ]);
+    Route::get('/my-recipes', [FrontendRecipeController::class, 'myRecipes'])->name('my-recipes');
     
     // Saved page
     Route::get('/saved', [FavoriteController::class, 'index'])->name('saved');
+    
+    // Frontend Review Routes
+    Route::post('/reviews', [FrontendReviewController::class, 'store'])->name('frontend.reviews.store');
     
     // Logout route accessible from frontend
     Route::post('/logout', [AuthController::class, 'logout'])->name('frontend.logout');

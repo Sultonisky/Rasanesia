@@ -7,17 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class RecipeController extends Controller
+class FrontendRecipeController extends Controller
 {
-    public function index()
-    {
-        $recipes = Recipe::with('user')->latest()->get();
-        return view('backend.recipes.index', compact('recipes'));
-    }
-
     public function create()
     {
-        return view('backend.recipes.create');
+        return view('frontend.recipes.create');
     }
 
     public function store(Request $request)
@@ -40,22 +34,26 @@ class RecipeController extends Controller
 
         Recipe::create($data);
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil ditambahkan.');
-    }
-
-    public function show($id)
-    {
-        $recipe = Recipe::with('user')->findOrFail($id);
-        return view('backend.recipes.show', compact('recipe'));
+        return redirect()->route('main-home')->with('success', 'Resep berhasil ditambahkan!');
     }
 
     public function edit(Recipe $recipe)
     {
-        return view('backend.recipes.edit', compact('recipe'));
+        // Pastikan user hanya bisa edit resepnya sendiri
+        if ($recipe->user_id !== Auth::id()) {
+            abort(403, 'Anda tidak memiliki akses untuk mengedit resep ini.');
+        }
+
+        return view('frontend.recipes.edit', compact('recipe'));
     }
 
     public function update(Request $request, Recipe $recipe)
     {
+        // Pastikan user hanya bisa update resepnya sendiri
+        if ($recipe->user_id !== Auth::id()) {
+            abort(403, 'Anda tidak memiliki akses untuk mengupdate resep ini.');
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
@@ -76,17 +74,31 @@ class RecipeController extends Controller
 
         $recipe->update($data);
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil diperbarui.');
+        return redirect()->route('my-recipes')->with('success', 'Resep berhasil diperbarui!');
     }
 
     public function destroy(Recipe $recipe)
     {
+        // Pastikan user hanya bisa hapus resepnya sendiri
+        if ($recipe->user_id !== Auth::id()) {
+            abort(403, 'Anda tidak memiliki akses untuk menghapus resep ini.');
+        }
+
         if ($recipe->foto) {
             Storage::disk('public')->delete($recipe->foto);
         }
 
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil dihapus.');
+        return redirect()->route('my-recipes')->with('success', 'Resep berhasil dihapus!');
     }
-}
+
+    public function myRecipes()
+    {
+        $recipes = Recipe::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+            
+        return view('frontend.archive.my-recipes', compact('recipes'));
+    }
+} 

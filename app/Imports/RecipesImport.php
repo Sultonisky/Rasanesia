@@ -20,8 +20,8 @@ class RecipesImport implements ToModel, WithHeadingRow
         Log::info('Importing recipe row:', $row);
 
         return new Recipe([
-            'user_id'     => $row['user_id'] ?? 1,
-            'name'        => $row['name'],
+            'user_id'     => auth()->user()->id ?? 1,
+            'name'        => auth()->user()->name,
             'description' => $row['description'] ?? '',
             'ingredients' => $row['ingredients'],
             'steps'       => $row['steps'],

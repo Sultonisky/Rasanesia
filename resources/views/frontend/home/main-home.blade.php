@@ -10,8 +10,8 @@
     </div>
 </div>
 <div class="search-bar">
-    <input type="text" placeholder="Cari resep, bahan, pengguna">
-    <button>Cari</button>
+    <input type="text" id="searchInput" placeholder="Cari resep, bahan, pengguna" onkeyup="searchRecipes()">
+    <button onclick="searchRecipes()">Cari</button>
 </div>
 <div class="carousel-container">
     <div class="carousel">
@@ -49,27 +49,19 @@
 <div class="card-grid">
     @foreach($latestRecipes as $recipe)
         <div class="card">
-            <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
-            <div class="card-content">
-                <div class="card-title">{{ $recipe->name }}</div>
-                <div class="card-region">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ $recipe->province }}</span>
+            <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
+                <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
+                <div class="card-content">
+                    <div class="card-title">{{ $recipe->name }}</div>
+                    <div class="card-region">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ $recipe->province }}</span>
+                    </div>
+                    <div class="card-description">
+                        {{ Str::limit($recipe->description, 80) }}
+                    </div>
                 </div>
-                <div class="card-description">
-                    {{ Str::limit($recipe->description, 80) }}
-                </div>
-                <div class="card-meta">
-                    <span class="cooking-time">
-                        <i class="fas fa-clock"></i>
-                        {{ $recipe->cooking_time ?? '30' }} menit
-                    </span>
-                    <span class="difficulty">
-                        <i class="fas fa-signal"></i>
-                        {{ $recipe->difficulty ?? 'Sedang' }}
-                    </span>
-                </div>
-            </div>
+            </a>
             @auth
                 <button class="favorite-btn" data-recipe-id="{{ $recipe->id }}" data-is-favorited="false">
                     <i class="far fa-heart"></i>
@@ -86,44 +78,38 @@
 <div class="card-grid">
     @foreach($bestRatedRecipes as $recipe)
         <div class="card">
-            <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
-            <div class="card-content">
-                <div class="card-title">{{ $recipe->name }}</div>
-                <div class="card-region">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ $recipe->province }}</span>
+            <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
+                <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
+                <div class="card-content">
+                    <div class="card-title">{{ $recipe->name }}</div>
+                    <div class="card-region">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ $recipe->province }}</span>
+                    </div>
+                    <div class="card-description">
+                        {{ Str::limit($recipe->description, 80) }}
+                    </div>
+                    <div class="rating-container">
+                        @php
+                            $rating = round($recipe->reviews_avg_rating);
+                            $fullStars = floor($rating);
+                            $hasHalfStar = $rating - $fullStars >= 0.5;
+                        @endphp
+                        <div class="stars">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $fullStars)
+                                    <i class="fas fa-star star-filled"></i>
+                                @elseif($i == $fullStars + 1 && $hasHalfStar)
+                                    <i class="fas fa-star-half-alt star-half"></i>
+                                @else
+                                    <i class="far fa-star star-empty"></i>
+                                @endif
+                            @endfor
+                        </div>
+                        <span class="rating-text">{{ number_format($recipe->reviews_avg_rating, 1) }}</span>
+                    </div>
                 </div>
-                <div class="card-description">
-                    {{ Str::limit($recipe->description, 80) }}
-                </div>
-                <div class="rating-container">
-                    @php
-                        $rating = round($recipe->reviews_avg_rating);
-                        $fullStars = floor($rating);
-                        $hasHalfStar = $rating - $fullStars >= 0.5;
-                    @endphp
-                    @for($i = 1; $i <= 5; $i++)
-                        @if($i <= $fullStars)
-                            <i class="fas fa-star text-warning"></i>
-                        @elseif($i == $fullStars + 1 && $hasHalfStar)
-                            <i class="fas fa-star-half-alt text-warning"></i>
-                        @else
-                            <i class="far fa-star text-warning"></i>
-                        @endif
-                    @endfor
-                    <span class="rating-text">({{ number_format($recipe->reviews_avg_rating, 1) }})</span>
-                </div>
-                <div class="card-meta">
-                    <span class="cooking-time">
-                        <i class="fas fa-clock"></i>
-                        {{ $recipe->cooking_time ?? '30' }} menit
-                    </span>
-                    <span class="difficulty">
-                        <i class="fas fa-signal"></i>
-                        {{ $recipe->difficulty ?? 'Sedang' }}
-                    </span>
-                </div>
-            </div>
+            </a>
             @auth
                 <button class="favorite-btn" data-recipe-id="{{ $recipe->id }}" data-is-favorited="false">
                     <i class="far fa-heart"></i>
@@ -141,36 +127,31 @@
     @foreach($recipesByProvince as $province => $recipes)
         @foreach($recipes as $recipe)
             <div class="category-card">
-                <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
-                <div class="category-title">{{ $province }}</div>
-                <div style="font-size:0.95em;">{{ $recipe->name }}</div>
-                @auth
-                    <button class="favorite-btn" data-recipe-id="{{ $recipe->id }}" data-is-favorited="false">
-                        <i class="far fa-heart"></i>
-                    </button>
-                @else
-                    <button class="favorite-btn guest-favorite" onclick="showLoginAlert()">
-                        <i class="far fa-heart"></i>
-                    </button>
-                @endauth
+                <a href="{{ route('recipe.show', $recipe->id) }}" class="category-link">
+                    <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
+                    <div class="category-title">{{ $province }}</div>
+                    <div style="font-size:0.95em;">{{ $recipe->name }}</div>
+                </a>
             </div>
         @endforeach
     @endforeach
 </div>
 
 <!-- Alert Modal untuk Guest -->
-<div id="loginAlert" class="modal" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Login Diperlukan</h3>
-            <span class="close" onclick="closeLoginAlert()">&times;</span>
-        </div>
-        <div class="modal-body">
-            <p>Untuk menambahkan resep ke favorit, Anda harus login terlebih dahulu.</p>
-            <div class="modal-buttons">
+<div class="modal fade" id="loginAlert" tabindex="-1" aria-labelledby="loginAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginAlertLabel">Login Diperlukan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Untuk menambahkan resep ke favorit, Anda harus login terlebih dahulu.</p>
+            </div>
+            <div class="modal-footer">
                 <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                 <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
-                <button onclick="closeLoginAlert()" class="btn btn-light">Batal</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
@@ -237,19 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Alert functions for guest users
 function showLoginAlert() {
-    document.getElementById('loginAlert').style.display = 'block';
-}
-
-function closeLoginAlert() {
-    document.getElementById('loginAlert').style.display = 'none';
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('loginAlert');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
+    const modal = new bootstrap.Modal(document.getElementById('loginAlert'));
+    modal.show();
 }
 
 @auth
@@ -265,6 +235,7 @@ function initializeFavoriteButtons() {
         
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation(); // Prevent card link from being triggered
             toggleFavorite(recipeId, button);
         });
     });
@@ -317,5 +288,132 @@ function toggleFavorite(recipeId, button) {
     });
 }
 @endauth
+
+// Search functionality
+function searchRecipes() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    const allCards = document.querySelectorAll('.card');
+    const allCategoryCards = document.querySelectorAll('.category-card');
+    
+    // Search in regular recipe cards
+    allCards.forEach(card => {
+        const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+        const region = card.querySelector('.card-region span')?.textContent.toLowerCase() || '';
+        const description = card.querySelector('.card-description')?.textContent.toLowerCase() || '';
+        
+        const isMatch = title.includes(searchTerm) || 
+                       region.includes(searchTerm) || 
+                       description.includes(searchTerm);
+        
+        if (searchTerm === '' || isMatch) {
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+        } else {
+            card.style.opacity = '0.3';
+            card.style.transform = 'scale(0.95)';
+        }
+    });
+    
+    // Search in category cards
+    allCategoryCards.forEach(card => {
+        const title = card.querySelector('.category-title')?.textContent.toLowerCase() || '';
+        const recipeName = card.querySelector('div[style*="font-size:0.95em;"]')?.textContent.toLowerCase() || '';
+        
+        const isMatch = title.includes(searchTerm) || 
+                       recipeName.includes(searchTerm);
+        
+        if (searchTerm === '' || isMatch) {
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+        } else {
+            card.style.opacity = '0.3';
+            card.style.transform = 'scale(0.95)';
+        }
+    });
+    
+    // Show/hide section titles based on search results
+    const sections = document.querySelectorAll('.section-title');
+    sections.forEach(section => {
+        const nextGrid = section.nextElementSibling;
+        if (nextGrid && (nextGrid.classList.contains('card-grid') || nextGrid.classList.contains('category-grid'))) {
+            const visibleCards = Array.from(nextGrid.children).filter(card => 
+                card.style.opacity !== '0.3'
+            );
+            
+            if (searchTerm === '' || visibleCards.length > 0) {
+                section.style.display = 'block';
+                nextGrid.style.display = 'grid';
+            } else {
+                section.style.display = 'none';
+                nextGrid.style.display = 'none';
+            }
+        }
+    });
+    
+    // Show no results message if needed
+    showNoResultsMessage(searchTerm);
+}
+
+function showNoResultsMessage(searchTerm) {
+    // Remove existing no results message
+    const existingMessage = document.querySelector('.no-results-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    if (searchTerm !== '') {
+        const allCards = document.querySelectorAll('.card, .category-card');
+        const visibleCards = Array.from(allCards).filter(card => 
+            card.style.opacity !== '0.3'
+        );
+        
+        if (visibleCards.length === 0) {
+            const noResultsDiv = document.createElement('div');
+            noResultsDiv.className = 'no-results-message';
+            noResultsDiv.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 15px; box-shadow: 0 2px 8px rgba(163,180,139,0.06); border: 1px solid #c7d3b0; margin: 20px 0;">
+                    <i class="fas fa-search" style="font-size: 3em; color: #c7d3b0; margin-bottom: 15px;"></i>
+                    <h3 style="color: #2e3a32; margin-bottom: 10px; font-size: 1.3em;">Tidak ada hasil ditemukan</h3>
+                    <p style="color: #6c757d; margin: 0;">Coba kata kunci lain atau periksa ejaan Anda.</p>
+                </div>
+            `;
+            
+            // Insert after the search bar
+            const searchBar = document.querySelector('.search-bar');
+            searchBar.parentNode.insertBefore(noResultsDiv, searchBar.nextSibling);
+        }
+    }
+}
+
+// Clear search when input is cleared
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function() {
+        if (this.value === '') {
+            // Reset all cards to normal state
+            const allCards = document.querySelectorAll('.card, .category-card');
+            allCards.forEach(card => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+            });
+            
+            // Show all sections
+            const sections = document.querySelectorAll('.section-title');
+            sections.forEach(section => {
+                section.style.display = 'block';
+                const nextGrid = section.nextElementSibling;
+                if (nextGrid && (nextGrid.classList.contains('card-grid') || nextGrid.classList.contains('category-grid'))) {
+                    nextGrid.style.display = 'grid';
+                }
+            });
+            
+            // Remove no results message
+            const noResultsMessage = document.querySelector('.no-results-message');
+            if (noResultsMessage) {
+                noResultsMessage.remove();
+            }
+        }
+    });
+});
 </script>
 @endsection

@@ -12,7 +12,7 @@ class FavoriteController extends Controller
     public function index()
     {
         $favorites = Auth::user()->favoriteRecipes()->with('user')->get();
-        return view('frontend.home.saved', compact('favorites'));
+        return view('frontend.archive.favorite', compact('favorites'));
     }
 
     public function store(Request $request)
@@ -115,7 +115,7 @@ class FavoriteController extends Controller
         ]);
 
         $userId = Auth::id();
-        $recipeId = $request->recipe_id;
+        $recipeId = $request->get('recipe_id');
 
         $isFavorited = Favorite::where('user_id', $userId)
             ->where('recipe_id', $recipeId)

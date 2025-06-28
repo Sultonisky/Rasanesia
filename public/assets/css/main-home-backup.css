@@ -1,4 +1,4 @@
-﻿body {
+body {
     margin: 0 !important;
     font-family: 'Inter', 'Segoe UI', Arial, sans-serif !important;
     background: #f6fff8 !important;
@@ -213,35 +213,24 @@
     margin-bottom: 10px !important;
 }
 .card, .category-card {
-    background: white !important;
-    border-radius: 15px !important;
-    box-shadow: 0 2px 8px rgba(163,180,139,0.06) !important;
-    border: 1px solid #c7d3b0 !important;
+    background: #fff !important;
+    border-radius: 24px !important;
+    box-shadow: 0 6px 24px rgba(163,180,139,0.13) !important;
     overflow: hidden !important;
-    transition: all 0.3s ease !important;
-    position: relative !important;
+    cursor: pointer !important;
     display: flex !important;
     flex-direction: column !important;
-    cursor: pointer !important;
+    align-items: center !important;
     min-width: 0 !important;
+    transition: box-shadow 0.22s, transform 0.22s, opacity 0.3s ease !important;
+    outline: none !important;
     min-height: 280px !important;
     max-width: 100% !important;
-}
-.card-link, .category-link {
-    text-decoration: none !important;
-    color: inherit !important;
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 !important;
-    cursor: pointer !important;
-}
-.card-link:hover, .category-link:hover {
-    text-decoration: none !important;
-    color: inherit !important;
+    position: relative !important;
 }
 .card:hover, .card:focus {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 8px 25px rgba(163,180,139,0.15) !important;
+    box-shadow: 0 10px 32px rgba(163,180,139,0.19) !important;
+    transform: translateY(-6px) scale(1.035) !important;
 }
 .card img, .category-card img {
     width: 100% !important;
@@ -799,6 +788,204 @@
         max-width: none !important;
     }
 }
+
+/* My Recipes Page Styling */
+.my-recipes-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+.recipes-header {
+    text-align: center !important;
+    margin-bottom: 30px !important;
+    padding: 20px !important;
+    background: white !important;
+    border-radius: 15px !important;
+    box-shadow: 0 2px 8px rgba(163,180,139,0.06) !important;
+    border: 1px solid #c7d3b0 !important;
+}
+
+.recipes-header h2 {
+    color: #2e3a32 !important;
+    margin-bottom: 8px !important;
+    font-size: 1.8em !important;
+}
+
+.recipes-header p {
+    color: #6c757d !important;
+    margin: 0 !important;
+    font-size: 1.1em !important;
+}
+
+.card-actions {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    display: flex !important;
+    gap: 8px !important;
+    z-index: 10 !important;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    color: #6c757d !important;
+}
+
+.action-btn:hover {
+    background: white !important;
+    transform: scale(1.1) !important;
+}
+
+.edit-btn:hover {
+    color: #007bff !important;
+}
+
+.delete-btn:hover {
+    color: #dc3545 !important;
+}
+
+.created-date {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.8em !important;
+    color: #6c757d !important;
+}
+
+.created-date i {
+    font-size: 10px !important;
+}
+
+.empty-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+    background: white !important;
+    border-radius: 15px !important;
+    box-shadow: 0 2px 8px rgba(163,180,139,0.06) !important;
+    border: 1px solid #c7d3b0 !important;
+}
+
+.empty-state-icon {
+    font-size: 4em !important;
+    color: #c7d3b0 !important;
+    margin-bottom: 20px !important;
+}
+
+.empty-state-title {
+    color: #2e3a32 !important;
+    margin-bottom: 10px !important;
+    font-size: 1.5em !important;
+    font-weight: 600 !important;
+}
+
+.empty-state-text {
+    color: #6c757d !important;
+    margin-bottom: 30px !important;
+    font-size: 1.1em !important;
+}
+
+.pagination-container {
+    margin-top: 30px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Empty State Styles */
+.empty-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+    background: white !important;
+    border-radius: 15px !important;
+    box-shadow: 0 2px 8px rgba(163,180,139,0.06) !important;
+    border: 1px solid #c7d3b0 !important;
+}
+
+.empty-state-icon {
+    font-size: 4em !important;
+    color: #c7d3b0 !important;
+    margin-bottom: 20px !important;
+}
+
+.empty-state-title {
+    color: #2e3a32 !important;
+    margin-bottom: 10px !important;
+    font-size: 1.5em !important;
+    font-weight: 600 !important;
+}
+
+.empty-state-text {
+    color: #6c757d !important;
+    margin-bottom: 30px !important;
+    font-size: 1.1em !important;
+}
+
+.pagination-container {
+    margin-top: 30px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Pagination Styles */
+.pagination-container {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 30px !important;
+}
+
+.pagination {
+    display: flex !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 5px !important;
+}
+
+.page-item {
+    margin: 0 !important;
+}
+
+.page-link {
+    padding: 10px 15px !important;
+    border: 1px solid #dee2e6 !important;
+    background: #fff !important;
+    color: #4CAF50 !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+}
+
+.page-link:hover {
+    background: #4CAF50 !important;
+    color: white !important;
+    border-color: #4CAF50 !important;
+    text-decoration: none !important;
+}
+
+.page-item.active .page-link {
+    background: #4CAF50 !important;
+    color: white !important;
+    border-color: #4CAF50 !important;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    pointer-events: none !important;
+    background: #f8f9fa !important;
+    border-color: #dee2e6 !important;
+}
+
+/* Responsive rating styles */
 @media (max-width: 600px) {
     .rating-container {
         padding: 6px 8px !important;

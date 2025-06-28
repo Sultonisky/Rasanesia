@@ -1,0 +1,480 @@
+/* Frontend Recipes Styles */
+
+/* Recipe Form Container */
+.recipe-form-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 40px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(163, 180, 139, 0.15);
+    border: 1px solid rgba(163, 180, 139, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #a3b48b, #4CAF50, #a3b48b);
+}
+
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.form-group label {
+    font-weight: 700;
+    color: #2e3a32;
+    font-size: 15px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group label::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(180deg, #a3b48b, #4CAF50);
+    border-radius: 2px;
+}
+
+.form-control {
+    padding: 16px 20px;
+    border: 2px solid #e8f0e8;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+    color: #2e3a32;
+    font-family: inherit;
+    position: relative;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #a3b48b;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(163, 180, 139, 0.15);
+    transform: translateY(-1px);
+}
+
+.form-control:hover {
+    border-color: #c7d3b0;
+    background: #fafbfa;
+}
+
+.form-control::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* Textarea specific styles */
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+/* Select specific styles */
+select.form-control {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a3b48b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 16px center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    padding-right: 50px;
+    appearance: none;
+}
+
+/* File input styles */
+input[type="file"].form-control {
+    padding: 12px 16px;
+    cursor: pointer;
+    position: relative;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 2px dashed #c7d3b0;
+    transition: all 0.3s ease;
+}
+
+input[type="file"].form-control:hover {
+    border-color: #a3b48b;
+    background: linear-gradient(135deg, #f0f4f0 0%, #f8f9fa 100%);
+}
+
+input[type="file"].form-control::-webkit-file-upload-button {
+    background: linear-gradient(135deg, #a3b48b 0%, #4CAF50 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+input[type="file"].form-control::-webkit-file-upload-button:hover {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Form text helper */
+.form-text {
+    font-size: 13px;
+    color: #6c757d;
+    margin-top: 6px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid #a3b48b;
+}
+
+/* Error messages */
+.error-message {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #fdf2f2;
+    border-radius: 6px;
+    border-left: 3px solid #dc3545;
+}
+
+.error-message::before {
+    content: '⚠';
+    font-size: 14px;
+}
+
+/* Current photo display */
+.current-photo {
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #c7d3b0;
+}
+
+.current-photo img {
+    border: 3px solid #e8f0e8;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    max-width: 100%;
+    height: auto;
+}
+
+.current-photo img:hover {
+    transform: scale(1.02);
+    border-color: #a3b48b;
+    box-shadow: 0 8px 25px rgba(163, 180, 139, 0.2);
+}
+
+/* Form actions */
+.form-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #e8f0e8;
+    position: relative;
+}
+
+.form-actions::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #a3b48b, #4CAF50, #a3b48b);
+}
+
+.btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #a3b48b 0%, #4CAF50 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(163, 180, 139, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+}
+
+/* Required field indicator */
+.form-group label[for*="name"]::after,
+.form-group label[for*="description"]::after,
+.form-group label[for*="ingredients"]::after,
+.form-group label[for*="steps"]::after {
+    content: ' *';
+    color: #dc3545;
+    font-weight: 700;
+}
+
+/* Loading state */
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .recipe-form-container {
+        margin: 15px;
+        padding: 25px;
+        border-radius: 15px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .form-control {
+        padding: 14px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-form-container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .recipe-form {
+        gap: 20px;
+    }
+    
+    .form-control {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Card Grid and Card Styles */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+
+.card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(163, 180, 139, 0.1);
+    border: 1px solid rgba(163, 180, 139, 0.1);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    min-height: 300px;
+    max-width: 100%;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #a3b48b, #4CAF50, #a3b48b);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    cursor: pointer;
+}
+
+.card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(163, 180, 139, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #2e3a32;
+    line-height: 1.4;
+}
+
+.card-region {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    color: #6c757d;
+    padding: 6px 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.card-region i {
+    color: #a3b48b;
+    font-size: 14px;
+}
+
+.card-description {
+    font-size: 0.95em;
+    color: #6c757d;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-btn:hover {
+    background: white;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-btn i {
+    font-size: 18px;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover i {
+    color: #dc3545;
+    transform: scale(1.1);
+}
+
+.favorite-btn i.fas.text-danger {
+    color: #dc3545;
+} 

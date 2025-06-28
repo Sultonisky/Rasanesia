@@ -2,6 +2,11 @@
 
 @section('title', 'Tambah Resep - Rasanesia')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/frontend-recipes.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+@endsection
+
 @section('content')
 <div class="title">
     <div class="logo-container">
@@ -15,25 +20,34 @@
         @csrf
         
         <div class="form-group">
-            <label for="name">Nama Resep *</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}" required class="form-control">
+            <label for="name">
+                <i class="fas fa-utensils"></i>
+                Nama Resep
+            </label>
+            <input type="text" id="name" name="name" value="{{ old('name') }}" required class="form-control" placeholder="Masukkan nama resep yang menarik...">
             @error('name')
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="description">Deskripsi *</label>
-            <textarea id="description" name="description" rows="3" required class="form-control">{{ old('description') }}</textarea>
+            <label for="description">
+                <i class="fas fa-align-left"></i>
+                Deskripsi
+            </label>
+            <textarea id="description" name="description" rows="3" required class="form-control" placeholder="Jelaskan tentang resep ini, rasa, dan keunikan yang membuatnya istimewa...">{{ old('description') }}</textarea>
             @error('description')
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="province">Provinsi (Opsional)</label>
+            <label for="province">
+                <i class="fas fa-map-marker-alt"></i>
+                Provinsi (Opsional)
+            </label>
             <select id="province" name="province" class="form-control">
-                <option value="">Pilih Provinsi</option>
+                <option value="">Pilih Provinsi Asal Resep</option>
                 <option value="Aceh" {{ old('province') == 'Aceh' ? 'selected' : '' }}>Aceh</option>
                 <option value="Sumatera Utara" {{ old('province') == 'Sumatera Utara' ? 'selected' : '' }}>Sumatera Utara</option>
                 <option value="Sumatera Barat" {{ old('province') == 'Sumatera Barat' ? 'selected' : '' }}>Sumatera Barat</option>
@@ -75,33 +89,51 @@
         </div>
 
         <div class="form-group">
-            <label for="ingredients">Bahan-bahan *</label>
-            <textarea id="ingredients" name="ingredients" rows="6" required class="form-control" placeholder="Masukkan bahan-bahan yang diperlukan...">{{ old('ingredients') }}</textarea>
+            <label for="ingredients">
+                <i class="fas fa-shopping-basket"></i>
+                Bahan-bahan
+            </label>
+            <textarea id="ingredients" name="ingredients" rows="6" required class="form-control" placeholder="Masukkan bahan-bahan yang diperlukan dengan format yang jelas...&#10;&#10;Contoh:&#10;- 500g daging sapi&#10;- 2 siung bawang putih&#10;- 1 sendok makan garam">{{ old('ingredients') }}</textarea>
             @error('ingredients')
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="steps">Langkah-langkah *</label>
-            <textarea id="steps" name="steps" rows="8" required class="form-control" placeholder="Masukkan langkah-langkah memasak...">{{ old('steps') }}</textarea>
+            <label for="steps">
+                <i class="fas fa-list-ol"></i>
+                Langkah-langkah
+            </label>
+            <textarea id="steps" name="steps" rows="8" required class="form-control" placeholder="Masukkan langkah-langkah memasak secara berurutan...&#10;&#10;Contoh:&#10;1. Panaskan minyak dalam wajan&#10;2. Tumis bawang putih hingga harum&#10;3. Masukkan daging dan aduk rata">{{ old('steps') }}</textarea>
             @error('steps')
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="foto">Foto Resep (Opsional)</label>
+            <label for="foto">
+                <i class="fas fa-camera"></i>
+                Foto Resep (Opsional)
+            </label>
             <input type="file" id="foto" name="foto" accept="image/*" class="form-control">
-            <small class="form-text">Format: JPG, PNG, JPEG. Maksimal 2MB</small>
+            <small class="form-text">
+                <i class="fas fa-info-circle"></i>
+                Format: JPG, PNG, JPEG. Maksimal 2MB. Foto yang jelas akan membuat resep lebih menarik!
+            </small>
             @error('foto')
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Simpan Resep</button>
-            <a href="{{ route('main-home') }}" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Tambah Resep
+            </button>
+            <a href="{{ route('main-home') }}" class="btn btn-secondary">
+                <i class="fas fa-times"></i>
+                Batal
+            </a>
         </div>
     </form>
 </div>

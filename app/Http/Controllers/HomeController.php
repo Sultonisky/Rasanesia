@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
@@ -148,7 +150,46 @@ class HomeController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        return view('frontend.profile.index', compact('user'));
+        return view('frontend.home.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan oleh user lain.',
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Format gambar harus JPG, PNG, atau GIF.',
+            'foto.max' => 'Ukuran gambar maksimal 2MB.',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        // Handle photo upload
+        if ($request->hasFile('foto')) {
+            // Delete old photo if exists
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+                Storage::disk('public')->delete($user->foto);
+            }
+            
+            // Store new photo
+            $data['foto'] = $request->file('foto')->store('foto', 'public');
+        }
+
+        $user->update($data);
+
+        return redirect()->route('profile')->with('success', 'Profile berhasil diperbarui!');
     }
 
     public function search(Request $request)
@@ -178,13 +219,9 @@ class HomeController extends Controller
         return view('frontend.recipes.index', compact('recipes'));
     }
 
-    public function archive()
+    public function showRecipe($id)
     {
-        $recipes = Recipe::whereNotNull('foto')
-            ->where('foto', '!=', '')
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
-            
-        return view('frontend.archive.index', compact('recipes'));
+        $recipe = Recipe::with(['user', 'reviews.user'])->findOrFail($id);
+        return view('frontend.recipes.detail_resep', compact('recipe'));
     }
 }
