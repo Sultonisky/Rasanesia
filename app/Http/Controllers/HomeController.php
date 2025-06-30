@@ -128,16 +128,19 @@ class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        // Section 3: group recipes by province (max 2 per province)
+        // Section 3: group recipes by province (1 per province)
         $provinces = Recipe::select('province')->distinct()->pluck('province');
         $recipesByProvince = [];
         foreach ($provinces as $province) {
-            $recipesByProvince[$province] = Recipe::where('province', $province)
+            $recipe = Recipe::where('province', $province)
                 ->whereNotNull('foto')
                 ->where('foto', '!=', '')
                 ->inRandomOrder()
-                ->limit(2)
-                ->get();
+                ->first();
+            
+            if ($recipe) {
+                $recipesByProvince[$province] = $recipe;
+            }
         }
 
         return view('frontend.home.main-home', [

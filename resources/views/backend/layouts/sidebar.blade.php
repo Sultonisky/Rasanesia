@@ -1,14 +1,12 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <i class="fas fa-fw fa-utensils"></i> {{-- ikon makanan khas --}}
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Rasanesia</div>
     </a>
-
-    <!-- Divider -->
 
     <hr class="sidebar-divider my-0">
 
@@ -16,40 +14,47 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
 
+    <!-- Nav Item - Users -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Users</span></a>
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span>
+        </a>
     </li>
 
+    <!-- Nav Item - Recipes -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('recipes.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Recipes</span></a>
+        <a class="nav-link" href="{{ route('admin.recipes.index') }}">
+            <i class="fas fa-fw fa-utensils"></i>
+            <span>Recipes</span>
+        </a>
     </li>
+
+    <!-- Nav Item - Reviews -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('reviews.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Reviews</span></a>
+            <i class="fas fa-fw fa-star"></i>
+            <span>Reviews</span>
+        </a>
     </li>
 
+    <!-- Nav Item - Favorites -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.favorites.index') }}">
             <i class="fas fa-fw fa-heart"></i>
-            <span>Favorites</span></a>
+            <span>Favorites</span>
+        </a>
     </li>
-
-    <!-- Divider -->
 
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+    <!-- Sidebar Toggler -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 
 </ul>

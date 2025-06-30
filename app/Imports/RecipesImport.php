@@ -11,8 +11,18 @@ class RecipesImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // Abaikan baris yang tidak punya nama, bahan, atau langkah
-        if (empty($row['name']) || empty($row['ingredients']) || empty($row['steps'])) {
+        // Validasi yang lebih ketat - name tidak boleh null atau kosong
+        if (empty(trim($row['name'] ?? '')) || empty(trim($row['ingredients'] ?? '')) || empty(trim($row['steps'] ?? ''))) {
+            Log::warning('Skipping row due to missing required fields:', $row);
+            return null;
+        }
+
+        // Cek apakah resep dengan nama yang sama sudah ada untuk user_id=1
+        $existing = Recipe::where('user_id', 1)
+            ->where('name', trim($row['name']))
+            ->first();
+        if ($existing) {
+            Log::info('Skipping duplicate recipe:', $row);
             return null;
         }
 
@@ -20,13 +30,13 @@ class RecipesImport implements ToModel, WithHeadingRow
         Log::info('Importing recipe row:', $row);
 
         return new Recipe([
-            'user_id'     => auth()->user()->id ?? 1,
-            'name'        => auth()->user()->name,
-            'description' => $row['description'] ?? '',
-            'ingredients' => $row['ingredients'],
-            'steps'       => $row['steps'],
-            'province'    => (!empty($row['province']) && $row['province'] !== '?') ? $row['province'] : 'Tidak Diketahui',
-            'foto'        => $row['foto'] ?? null,
+            'user_id'     => 1,
+            'name'        => trim($row['name']), // Pastikan name tidak null dan di-trim
+            'description' => trim($row['description'] ?? ''),
+            'ingredients' => trim($row['ingredients']),
+            'steps'       => trim($row['steps']),
+            'province'    => (!empty(trim($row['province'] ?? '')) && trim($row['province']) !== '?') ? trim($row['province']) : 'Tidak Diketahui',
+            'foto'        => !empty(trim($row['foto'] ?? '')) ? trim($row['foto']) : null,
         ]);
     }
 }

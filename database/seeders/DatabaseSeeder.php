@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'id' => 1,
             'name' => 'Admin',
             'email' => 'admin123@gmail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('admin123'),
             'role' => 'admin',
             'foto' => '',
@@ -26,12 +27,13 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'User',
             'email' => 'user123@gmail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('user123'),
             'role' => 'user',
             'foto' => '',
         ]);
 
-        User::factory()->count(100)->create(); // pastikan ada user
+        // User::factory()->count(100)->create();
         // Recipe::factory()->count(100)->create();
     }
 }

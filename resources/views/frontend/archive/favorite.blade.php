@@ -1,88 +1,93 @@
 @extends('frontend.layouts.app')
 
+@push('styles')
+    <link href="{{ asset('assets/css/favorite.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
-<div class="main-content">
+    <div class="favorite-page">
         <div class="back-button">
-            <a href="{{ route('main-home') }}" style="text-decoration: none; color: inherit;">
-                <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="32" 
-                    height="32" 
-                    viewBox="0 0 24 24" 
-                    fill="none"
-                    stroke="#202020" 
-                    stroke-width="2" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round">
-                    <line x1="20" y1="12" x2="4" y2="12" />
-                    <polyline points="10 18 4 12 10 6" />
-                </svg>
+            <a href="{{ route('main-home') }}" title="Kembali ke Beranda">
+                <i class="fas fa-arrow-left"></i>
             </a>
-            <h2>Disimpan</h2>
+            <h2>Resep Favorit Saya</h2>
         </div>
 
-        <!-- Looping Data disini -->
-        <div class="card-container">
-            @if($favorites->count() > 0)
-                @foreach($favorites as $recipe)
-                    <div class="card">
-                        @if($recipe->foto)
-                            @if(Str::startsWith($recipe->foto, ['http://', 'https://']))
-                                <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}">
-                            @else
-                                <img src="{{ asset('storage/' . $recipe->foto) }}" alt="{{ $recipe->name }}">
-                            @endif
-                        @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($recipe->name) }}&size=200&background=random" alt="{{ $recipe->name }}">
-                        @endif
-                        <h3 class="title">{{ $recipe->name }}</h3>
-                        <button class="btn btn-danger btn-sm remove-favorite" data-recipe-id="{{ $recipe->id }}" style="margin-top: 10px;">
-                            <i class="fas fa-heart-broken"></i> Hapus dari Favorit
-                        </button>
-                    </div>
-                @endforeach
-            @else
-                <div style="text-align: center; padding: 50px; color: #666;">
-                    <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; color: #ddd;"></i>
-                    <h3>Belum ada resep favorit</h3>
-                    <p>Anda belum menyimpan resep apapun ke dalam favorit.</p>
-                    <a href="{{ route('main-home') }}" class="btn btn-primary">Jelajahi Resep</a>
+        <div class="card-grid">
+            @forelse($favorites as $recipe)
+                <div class="card">
+                    <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
+                        <img src="{{ Str::startsWith($recipe->foto, ['http://', 'https://']) ? $recipe->foto : asset('storage/' . $recipe->foto) }}"
+                            alt="{{ $recipe->name }}" loading="lazy">
+
+                        <div class="card-content">
+                            <div class="card-title">{{ $recipe->name }}</div>
+
+                            <div class="card-region">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ $recipe->province ?: 'Tidak ditentukan' }}</span>
+                            </div>
+
+                            <div class="card-description">
+                                {{ Str::limit($recipe->description, 100) }}
+                            </div>
+                        </div>
+                    </a>
+
+                    <button class="favorite-btn" onclick="removeFavorite({{ $recipe->id }})"
+                        data-recipe-id="{{ $recipe->id }}">
+                        <i class="fas fa-heart text-danger"></i>
+                    </button>
                 </div>
-            @endif
+            @empty
+                <div class="empty-state">
+                    <i class="fas fa-heart"></i>
+                    <h3>Belum ada resep favorit</h3>
+                    <p>Mulailah simpan resep favorit Anda dan lihat di sini nanti!</p>
+                    <a href="{{ route('main-home') }}" class="btn">
+                        <i class="fas fa-search"></i> Jelajahi Resep
+                    </a>
+                </div>
+            @endforelse
         </div>
     </div>
 @endsection
 
 @push('scripts')
-<script>
-$(document).ready(function() {
-    $('.remove-favorite').click(function() {
-        const recipeId = $(this).data('recipe-id');
-        const card = $(this).closest('.card');
-        
-        $.ajax({
-            url: '{{ route("favorites.destroy") }}',
-            method: 'DELETE',
-            data: {
-                recipe_id: recipeId,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    card.fadeOut(300, function() {
-                        $(this).remove();
-                        // Check if no more cards
-                        if ($('.card-container .card').length === 0) {
-                            location.reload(); // Reload to show empty state
+    <script>
+        function removeFavorite(recipeId) {
+            const button = document.querySelector(`button[data-recipe-id="${recipeId}"]`);
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            fetch('{{ route('favorites.destroy') }}', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        recipe_id: recipeId
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        button.closest('.card').remove();
+                        if (document.querySelectorAll('.card').length === 0) {
+                            location.reload();
                         }
-                    });
-                }
-            },
-            error: function() {
-                alert('Terjadi kesalahan saat menghapus dari favorit');
-            }
-        });
-    });
-});
-</script>
+                    } else {
+                        alert('Gagal menghapus favorit.');
+                        button.innerHTML = '<i class="fas fa-heart text-danger"></i>';
+                        button.disabled = false;
+                    }
+                })
+                .catch(() => {
+                    alert('Terjadi kesalahan. Silakan coba lagi.');
+                    button.innerHTML = '<i class="fas fa-heart text-danger"></i>';
+                    button.disabled = false;
+                });
+        }
+    </script>
 @endpush

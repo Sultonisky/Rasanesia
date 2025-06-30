@@ -12,7 +12,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Daftar Resep</h6>
-            <a href="{{ route('recipes.create') }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('admin.recipes.create') }}" class="btn btn-sm btn-primary">
                 <i class="fas fa-plus"></i> Tambah Resep
             </a>
         </div>
@@ -51,10 +51,10 @@
                                 <td>{{ $recipe->user->name ?? '-' }}</td>
                                 <td>{{ $recipe->province ?? '-' }}</td>
                                 <td>
-                                    <a href="{{ route('recipes.show', $recipe->id) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.recipes.show', $recipe->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.recipes.edit', $recipe->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

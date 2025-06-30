@@ -1,0 +1,347 @@
+/* ========== Variables & Reset ========== */
+:root {
+    --primary: #4caf50;
+    --secondary: #a3b48b;
+    --danger: #dc3545;
+    --gray-light: #f8f9fa;
+    --gray-dark: #6c757d;
+    --text-dark: #2e3a32;
+    --card-shadow: 0 4px 20px rgba(163, 180, 139, 0.1);
+    --card-hover-shadow: 0 12px 35px rgba(163, 180, 139, 0.2);
+    --radius: 18px;
+    --transition: all 0.3s ease;
+}
+
+/* Reset khusus untuk halaman favorite */
+.favorite-page * {
+    box-sizing: border-box;
+}
+
+.favorite-page {
+    font-family: "Inter", sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========== Favorite Page Layout ========== */
+.favorite-page {
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.back-button a {
+    font-size: 20px;
+    color: var(--gray-dark);
+    transition: var(--transition);
+}
+
+.back-button a:hover {
+    color: var(--primary);
+    transform: translateX(-4px);
+}
+
+.back-button h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* ========== Grid Card Layout ========== */
+.favorite-page .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+
+/* Override global card styles */
+.favorite-page .card,
+.favorite-page .card-grid .card {
+    all: unset;
+    display: flex !important;
+    flex-direction: column !important;
+    background: linear-gradient(135deg, #ffffff 0%, var(--gray-light) 100%) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    border: 1px solid rgba(163, 180, 139, 0.1) !important;
+    overflow: hidden !important;
+    transition: var(--transition) !important;
+    position: relative !important;
+    cursor: pointer !important;
+    min-height: 300px !important;
+    max-width: 100% !important;
+    contain: layout style paint !important;
+}
+
+.favorite-page .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--secondary),
+        var(--primary),
+        var(--secondary)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.favorite-page .card:hover::before {
+    opacity: 1;
+}
+
+.favorite-page .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+/* ========== Card Content ========== */
+.favorite-page .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Override main-home.css dengan specificity yang lebih tinggi */
+.favorite-page .card img,
+.favorite-page .card-grid .card img {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover !important;
+    transition: transform 0.4s ease !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    display: block !important;
+    max-width: 100% !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.favorite-page .card:hover img,
+.favorite-page .card-grid .card:hover img {
+    transform: scale(1.08) !important;
+}
+
+.favorite-page .card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.favorite-page .card-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+
+.favorite-page .card-region {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    color: var(--gray-dark);
+    padding: 6px 12px;
+    background: var(--gray-light);
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.favorite-page .card-region i {
+    color: var(--secondary);
+    font-size: 14px;
+}
+
+.favorite-page .card-description {
+    font-size: 0.95em;
+    color: var(--gray-dark);
+    line-height: 1.5;
+    flex: 1;
+}
+
+/* ========== Favorite Button ========== */
+.favorite-page .favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-page .favorite-btn:hover {
+    background: #fff;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-page .favorite-btn i {
+    font-size: 18px;
+    color: var(--gray-dark);
+    transition: var(--transition);
+}
+
+.favorite-page .favorite-btn:hover i {
+    color: var(--danger);
+    transform: scale(1.1);
+}
+
+.favorite-page .favorite-btn i.fas.text-danger {
+    color: var(--danger);
+}
+
+/* ========== Empty State ========== */
+.favorite-page .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--gray-light);
+    border-radius: 14px;
+    margin-top: 40px;
+}
+
+.favorite-page .empty-state i {
+    font-size: 3rem;
+    color: var(--secondary);
+    margin-bottom: 12px;
+}
+
+.favorite-page .empty-state h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.favorite-page .empty-state p {
+    color: var(--gray-dark);
+    margin-bottom: 20px;
+}
+
+.favorite-page .empty-state .btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.favorite-page .empty-state .btn:hover {
+    background-color: #3e9142;
+}
+
+/* Mobile First Improvements */
+@media (max-width: 768px) {
+    .favorite-page .card-grid {
+        grid-template-columns: 1fr; /* Hanya 1 kolom */
+        gap: 16px;
+    }
+
+    .favorite-page .card {
+        border-radius: 12px;
+        min-height: unset;
+        padding-bottom: 10px;
+    }
+
+    .favorite-page .card img,
+    .favorite-page .card-grid .card img {
+        height: 200px !important;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .favorite-page .card-content {
+        padding: 12px;
+    }
+
+    .favorite-page .card-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 6px;
+        text-align: left;
+    }
+
+    .favorite-page .card-region {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        gap: 5px;
+        margin-bottom: 8px;
+        background-color: #f1f3f5;
+        border-radius: 6px;
+    }
+
+    .favorite-page .card-description {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: #555;
+    }
+
+    .favorite-page .favorite-btn {
+        width: 32px;
+        height: 32px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .favorite-page .favorite-btn i {
+        font-size: 15px;
+    }
+}
+
+/* Khusus untuk layar sangat kecil (HP kecil) */
+@media (max-width: 480px) {
+    .favorite-page .card-title {
+        font-size: 0.9rem;
+    }
+
+    .favorite-page .card-description {
+        font-size: 0.75rem;
+    }
+
+    .favorite-page .card img,
+    .favorite-page .card-grid .card img {
+        height: 180px !important;
+    }
+
+    .favorite-page .favorite-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .favorite-page .favorite-btn i {
+        font-size: 14px;
+    }
+}

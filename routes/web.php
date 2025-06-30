@@ -1,19 +1,20 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
-use App\Http\Controllers\FrontendRecipeController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\FrontendReviewController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminFavoriteController;
+use App\Http\Controllers\FrontendRecipeController;
+use App\Http\Controllers\FrontendReviewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Auth\Events\Verified;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,12 +61,14 @@ Route::middleware(['require.auth'])->group(function () {
 
 // ROUTE ADMIN - Memerlukan autentikasi admin
 Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('backend.dashboard.dashboard');
-    })->name('dashboard');
+    // routes/web.php
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('users', UserController::class);
-    Route::resource('recipes', RecipeController::class); // Backend RecipeController untuk admin
+    Route::resource('admin/recipes', RecipeController::class)->names('admin.recipes'); // Backend RecipeController untuk admin
     Route::resource('reviews', ReviewController::class);
+    Route::get('/admin/profile', [DashboardController::class, 'profile'])->name('admin.profile');
+    Route::post('/admin/profile/update', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
     Route::resource('admin-favorites', AdminFavoriteController::class)->names([
         'index' => 'admin.favorites.index',
         'create' => 'admin.favorites.create',
@@ -80,12 +83,12 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
 // ROUTE USER - Memerlukan autentikasi user
 Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-    
+
     // Frontend Navigation Routes
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [HomeController::class, 'updateProfile'])->name('profile.update');
     Route::get('/archive', [HomeController::class, 'archive'])->name('archive');
-    
+
     // Frontend Recipe Routes untuk User
     Route::resource('frontend-recipes', FrontendRecipeController::class)->names([
         'create' => 'recipes.create',
@@ -95,13 +98,13 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
         'destroy' => 'recipes.destroy',
     ]);
     Route::get('/my-recipes', [FrontendRecipeController::class, 'myRecipes'])->name('my-recipes');
-    
+
     // Saved page
     Route::get('/saved', [FavoriteController::class, 'index'])->name('saved');
-    
+
     // Frontend Review Routes
-    Route::post('/reviews', [FrontendReviewController::class, 'store'])->name('frontend.reviews.store');
-    
+    Route::post('user/reviews', [FrontendReviewController::class, 'store'])->name('frontend.reviews.store');
+
     // Logout route accessible from frontend
     Route::post('/logout', [AuthController::class, 'logout'])->name('frontend.logout');
 });

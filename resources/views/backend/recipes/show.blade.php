@@ -9,14 +9,17 @@
             <div class="card shadow">
                 <div class="card-body text-center">
                     @if ($recipe->foto)
-                        <img src="{{ asset('storage/' . $recipe->foto) }}" class="img-fluid rounded mb-3"
-                            style="max-height: 300px;">
+                        @if (Str::startsWith($recipe->foto, ['http://', 'https://']))
+                            <img src="{{ $recipe->foto }}" class="img-fluid rounded mb-3" style="max-height: 300px; object-fit: cover;">
+                        @else
+                            <img src="{{ asset('storage/' . $recipe->foto) }}" class="img-fluid rounded mb-3" style="max-height: 300px; object-fit: cover;">
+                        @endif
                     @else
                         <img src="https://via.placeholder.com/400x300?text=Tidak+Ada+Foto" class="img-fluid rounded mb-3">
                     @endif
                     <h4 class="font-weight-bold">{{ $recipe->name }}</h4>
                     <p class="text-muted">Dibuat oleh: {{ $recipe->user->name ?? '-' }}</p>
-                    <a href="{{ route('recipes.index') }}" class="btn btn-secondary btn-sm">← Kembali ke daftar</a>
+                    <a href="{{ route('admin.recipes.index') }}" class="btn btn-secondary btn-sm">← Kembali ke daftar</a>
                 </div>
             </div>
         </div>
@@ -53,13 +56,13 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingIngredients">
+                    <h2 class="accordion-header" id="headingProvince">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
-                            🥕 Bahan-Bahan
+                            data-bs-target="#collapseProvince" aria-expanded="false" aria-controls="collapseProvince">
+                            🏙️ Provinsi
                         </button>
                     </h2>
-                    <div id="collapseIngredients" class="accordion-collapse collapse" aria-labelledby="headingIngredients"
+                    <div id="collapseProvince" class="accordion-collapse collapse" aria-labelledby="headingProvince"
                         data-bs-parent="#accordionRecipe">
                         <div class="accordion-body">
                             <pre style="white-space: pre-wrap;">{{ $recipe->province }}</pre>
