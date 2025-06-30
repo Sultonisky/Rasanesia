@@ -16,7 +16,7 @@
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
 
-    <link href="{{ asset('admin_assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -109,7 +109,7 @@
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
     </script>
 
-    <script>
+    <!-- <script>
         function previewFoto() {
             const foto = document.querySelector('input[name="foto"]');
             const fotoPreview = document.querySelector('.foto-preview');
@@ -122,7 +122,7 @@
                 reader.readAsDataURL(foto.files[0]);
             }
         }
-    </script>
+    </script> -->
 
     <script>
         setTimeout(() => {
@@ -130,20 +130,25 @@
         }, 3000); // 3 detik
     </script>
 
-    {{-- <script>
+    <script>
         function previewFoto() {
             const foto = document.querySelector('input[name="foto"]');
-            const fotoPreview = document.querySelector('.foto-preview');
-            fotoPreview.style.display = 'block';
-            const fotoReader = new FileReader();
-            fotoReader.readAsDataURL(foto.files[0]);
-            fotoReader.onload = function(fotoEvent) {
-                fotoPreview.src = fotoEvent.target.result;
-                fotoPreview.style.width = '100%';
+            // Cek apakah ini halaman resep atau user
+            let fotoPreview = document.getElementById('recipe-foto-preview');
+            if (!fotoPreview) {
+                fotoPreview = document.getElementById('user-foto-preview');
             }
-
+            if (foto && foto.files && foto.files[0] && fotoPreview) {
+                fotoPreview.style.display = 'block';
+                const fotoReader = new FileReader();
+                fotoReader.readAsDataURL(foto.files[0]);
+                fotoReader.onload = function(fotoEvent) {
+                    fotoPreview.src = fotoEvent.target.result;
+                    fotoPreview.style.width = '100%';
+                }
+            }
         }
-    </script> --}}
+    </script>
 
     <!-- DataTables Init -->
     <script>

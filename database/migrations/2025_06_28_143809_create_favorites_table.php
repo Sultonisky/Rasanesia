@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
             
             // Prevent duplicate favorites
             $table->unique(['user_id', 'recipe_id']);

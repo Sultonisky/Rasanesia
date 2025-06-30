@@ -44,7 +44,7 @@ class FrontendRecipeController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk mengedit resep ini.');
         }
 
-        return view('frontend.recipes.edit', compact('recipe'));
+        return view('frontend.archive.edit_recipes', compact('recipe'));
     }
 
     public function update(Request $request, Recipe $recipe)
@@ -75,6 +75,11 @@ class FrontendRecipeController extends Controller
         $recipe->update($data);
 
         return redirect()->route('my-recipes')->with('success', 'Resep berhasil diperbarui!');
+    }
+
+    public function show(Recipe $recipe)
+    {
+        return view('frontend.recipes.detail_resep', compact('recipe'));
     }
 
     public function destroy(Recipe $recipe)

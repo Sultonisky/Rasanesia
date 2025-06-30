@@ -13,8 +13,8 @@
                 <div class="card shadow">
                     <div class="card-body text-center">
                         <h5 class="mb-3">Foto Profil</h5>
-                        <img src="{{ auth()->user()->foto ? asset('storage/' . auth()->user()->foto) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) }}"
-                            class="img-thumbnail foto-preview" id="preview-image"
+                        <img id="profile-foto-preview" src="{{ auth()->user()->foto ? asset('storage/' . auth()->user()->foto) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) }}"
+                            class="img-thumbnail foto-preview"
                             style="width: 100%; max-height: 300px; object-fit: cover;" alt="Preview Foto">
 
                         <input type="file" name="foto" class="form-control mt-3" onchange="previewFoto()">
@@ -55,9 +55,8 @@
     <script>
         function previewFoto() {
             const foto = document.querySelector('input[name="foto"]');
-            const fotoPreview = document.querySelector('.foto-preview');
-
-            if (foto && foto.files && foto.files[0]) {
+            const fotoPreview = document.getElementById('profile-foto-preview');
+            if (foto && foto.files && foto.files[0] && fotoPreview) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     fotoPreview.src = e.target.result;

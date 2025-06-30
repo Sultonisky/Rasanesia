@@ -21,24 +21,26 @@
             <div class="recipes-list">
                 @foreach($recipes as $recipe)
                     <div class="recipe-card">
-                        <div class="recipe-card-img">
-                            <img src="{{ $recipe->foto ? asset('storage/' . $recipe->foto) : asset('assets/img/default-recipe.jpg') }}" alt="{{ $recipe->name }}" loading="lazy">
-                        </div>
-                        <div class="recipe-card-content">
-                            <div class="recipe-card-header">
-                                <h2 class="recipe-card-title">{{ $recipe->name }}</h2>
-                                <div class="recipe-card-actions">
-                                    <a href="{{ route('recipes.edit', $recipe->id) }}" class="edit-btn" title="Edit Resep"><i class="fas fa-edit"></i></a>
-                                    <button class="delete-btn" onclick="deleteRecipe({{ $recipe->id }})" title="Hapus Resep"><i class="fas fa-trash"></i></button>
+                        <a href="{{ route('recipes.show', $recipe->id) }}" class="recipe-card-link">
+                            <div class="recipe-card-img">
+                                <img src="{{ $recipe->foto ? asset('storage/' . $recipe->foto) : asset('assets/img/default-recipe.jpg') }}" alt="{{ $recipe->name }}" loading="lazy">
+                            </div>
+                            <div class="recipe-card-content">
+                                <div class="recipe-card-header">
+                                    <h2 class="recipe-card-title">{{ $recipe->name }}</h2>
+                                </div>
+                                <div class="recipe-card-meta">
+                                    <span class="meta-item"><i class="fas fa-calendar-alt"></i> {{ $recipe->created_at->format('d M Y, H:i') }}</span>
+                                    <span class="meta-item"><i class="fas fa-map-marker-alt"></i> {{ $recipe->province ?: 'Tidak ditentukan' }}</span>
+                                </div>
+                                <div class="recipe-card-desc">
+                                    {{ Str::limit($recipe->description, 100) }}
                                 </div>
                             </div>
-                            <div class="recipe-card-meta">
-                                <span class="meta-item"><i class="fas fa-calendar-alt"></i> {{ $recipe->created_at->format('d M Y, H:i') }}</span>
-                                <span class="meta-item"><i class="fas fa-map-marker-alt"></i> {{ $recipe->province ?: 'Tidak ditentukan' }}</span>
-                            </div>
-                            <div class="recipe-card-desc">
-                                {{ Str::limit($recipe->description, 100) }}
-                            </div>
+                        </a>
+                        <div class="recipe-card-actions">
+                            <a href="{{ route('recipes.edit', $recipe->id) }}" class="edit-btn" title="Edit Resep"><i class="fas fa-edit"></i></a>
+                            <button class="delete-btn" onclick="deleteRecipe({{ $recipe->id }})" title="Hapus Resep"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 @endforeach

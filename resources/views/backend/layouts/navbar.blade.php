@@ -74,8 +74,8 @@
                     </a>
                 @endforeach
 
-                @foreach ($alertReviews as $review)
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route('reviews.show', $review->id) }}">
+                @foreach ($alertReviews as $review) 
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.reviews.show', $review->id) }}">
                         <div class="mr-3">
                             <div class="icon-circle bg-warning">
                                 <i class="fas fa-star text-white"></i>
@@ -93,7 +93,7 @@
                     <div class="dropdown-item text-center text-muted">Belum ada notifikasi.</div>
                 @endif
 
-                <a class="dropdown-item text-center small text-gray-500" href="{{ route('reviews.index') }}">Lihat Semua
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.reviews.index') }}">Lihat Semua
                     Notifikasi</a>
             </div>
         </li>
@@ -110,7 +110,7 @@
                     <br>
                     <small>{{ auth()->user()->email }}</small>
                 </span>
-                <img class="foto-preview img-fluid rounded-circle shadow"
+                <img class="img-fluid rounded-circle shadow"
                     src="{{ auth()->user()->foto ? asset('storage/' . auth()->user()->foto) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) }}"
                     style=" object-fit: contain;">
             </a>

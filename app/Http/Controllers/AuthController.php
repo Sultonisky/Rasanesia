@@ -150,9 +150,4 @@ class AuthController extends Controller
             ? redirect()->route('login')->with('message', 'Password berhasil direset! Silakan login dengan password baru.')
             : back()->withErrors(['email' => [__($status)]]);
     }
-
-    public function profile()
-    {
-        return view('backend.profile.profile');
-    }
 }

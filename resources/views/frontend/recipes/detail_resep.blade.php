@@ -39,11 +39,17 @@
         <!-- Recipe Header with Image -->
         <div class="recipe-header">
             <div class="recipe-image-container">
-                @if ($recipe->foto)
-                    <img src="{{ asset($recipe->foto) }}" alt="{{ $recipe->name }}" class="recipe-image">
-                @else
-                    <img src="{{ asset('assets/img/chef_hat.png') }}" alt="{{ $recipe->name }}" class="recipe-image">
-                @endif
+                @php
+                    $foto = $recipe->foto;
+                    if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                        $fotoUrl = $foto;
+                    } elseif ($foto) {
+                        $fotoUrl = asset('storage/' . $foto);
+                    } else {
+                        $fotoUrl = asset('assets/img/chef_hat.png');
+                    }
+                @endphp
+                <img src="{{ $fotoUrl }}" alt="{{ $recipe->name }}" class="recipe-image">
                 <div class="recipe-overlay">
                     <h1 class="recipe-title">{{ $recipe->name }}</h1>
                     <div class="recipe-meta">

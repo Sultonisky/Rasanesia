@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('reviews.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('admin.reviews.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
 @endsection

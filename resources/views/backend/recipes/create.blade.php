@@ -12,7 +12,7 @@
                 <div class="card shadow">
                     <div class="card-body text-center">
                         <h5 class="mb-3">Foto Resep</h5>
-                        <img src="https://ui-avatars.com/api/?name=Recipe&size=300" class="img-thumbnail foto-preview"
+                        <img id="recipe-foto-preview" src="https://ui-avatars.com/api/?name=Recipe&size=300" class="img-thumbnail foto-preview"
                             style="width: 100%; max-height: 300px; object-fit: cover;" alt="Preview Foto">
 
                         <input type="file" name="foto" class="form-control mt-3" onchange="previewFoto()" accept="image/*">

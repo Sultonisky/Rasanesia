@@ -4,9 +4,9 @@
             <i class="fas fa-check-circle"></i>
             <span>{{ session('success') }}</span>
         </div>
-        <button class="alert-close" onclick="this.parentElement.style.display='none'">
+        <!-- <button class="alert-close" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
-        </button>
+        </button> -->
     </div>
 @endif
 
@@ -16,9 +16,9 @@
             <i class="fas fa-exclamation-circle"></i>
             <span>{{ session('error') }}</span>
         </div>
-        <button class="alert-close" onclick="this.parentElement.style.display='none'">
+        <!-- <button class="alert-close" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
-        </button>
+        </button> -->
     </div>
 @endif
 
@@ -28,8 +28,8 @@
             <i class="fas fa-info-circle"></i>
             <span>{{ session('message') }}</span>
         </div>
-        <button class="alert-close" onclick="this.parentElement.style.display='none'">
+        <!-- <button class="alert-close" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
-        </button>
+        </button> -->
     </div>
 @endif

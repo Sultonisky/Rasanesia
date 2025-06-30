@@ -8,6 +8,7 @@
     <h1 class="h3 mb-2 text-gray-800">Data Recipes</h1>
     <p class="mb-4">Halaman ini menampilkan seluruh data resep.</p>
 
+    <a href="{{ route('admin.recipes.trashed') }}" class="btn btn-warning mb-3">Lihat Resep Terhapus</a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -54,7 +55,8 @@
                                     <a href="{{ route('admin.recipes.show', $recipe->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('admin.recipes.edit', $recipe->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.recipes.edit', $recipe->id) }}"
+                                        class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
@@ -107,7 +109,7 @@
             const button = $(event.relatedTarget);
             const recipeId = button.data('id');
             const recipeName = button.data('name');
-            const action = '/recipes/' + recipeId;
+            const action = '/admin/recipes/' + recipeId;
 
             $('#deleteForm').attr('action', action);
             $('#recipeName').text(recipeName);

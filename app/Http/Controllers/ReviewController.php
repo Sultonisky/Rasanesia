@@ -87,4 +87,17 @@ class ReviewController extends Controller
 
         return redirect()->route('reviews.index')->with('success', 'Review berhasil dihapus.');
     }
+
+    public function trashed()
+    {
+        $reviews = Review::onlyTrashed()->get();
+        return view('backend.reviews.trashed', compact('reviews'));
+    }
+
+    public function restore($id)
+    {
+        $review = Review::onlyTrashed()->findOrFail($id);
+        $review->restore();
+        return redirect()->route('reviews.index')->with('success', 'Review berhasil direstore.');
+    }
 }

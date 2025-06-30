@@ -113,8 +113,11 @@
 
 .carousel-slide img {
     width: 100% !important;
-    height: 100% !important;
+    aspect-ratio: 16/10 !important;
     object-fit: cover !important;
+    border-bottom: 1.5px solid #c7d3b0 !important;
+    background: #f6fff8 !important;
+    transition: transform 0.22s !important;
 }
 
 .carousel-caption {
@@ -210,7 +213,7 @@
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)) !important;
     gap: 36px !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 24px !important;
 }
 .card, .category-card {
     background: white !important;
@@ -224,7 +227,6 @@
     flex-direction: column !important;
     cursor: pointer !important;
     min-width: 0 !important;
-    min-height: 280px !important;
     max-width: 100% !important;
 }
 .card-link, .category-link {
@@ -245,7 +247,7 @@
 }
 .card img, .category-card img {
     width: 100% !important;
-    height: 160px !important;
+    aspect-ratio: 16/10 !important;
     object-fit: cover !important;
     border-bottom: 1.5px solid #c7d3b0 !important;
     background: #f6fff8 !important;
@@ -298,6 +300,7 @@
 .category-card img {
     width: 100% !important;
     height: 460px !important;
+    aspect-ratio: 16/10 !important;
     object-fit: cover !important;
     background: #f6fff8 !important;
     border-bottom: 1px solid #c7d3b0 !important;
@@ -340,36 +343,21 @@
 @media (max-width: 900px) {
     .card-grid, .category-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-        gap: 18px !important;
+        gap: 15px !important;
+        margin-bottom: 20px !important;
     }
     .card img, .category-card img {
         height: 120px !important;
     }
     .card, .category-card {
-        min-height: 240px !important;
+        min-height: 250px !important;
+    }
+    .card-content {
+        padding: 10px !important;
     }
     .card-title {
-        font-size: 1.1em !important;
-    }
-    .card-description {
-        font-size: 0.8em !important;
-    }
-    .card-meta {
-        font-size: 0.75em !important;
-    }
-    .category-recipe-name {
-        font-size: 0.85em !important;
-        padding: 6px 8px 8px 8px !important;
-        margin: 0 8px 8px 8px !important;
-    }
-    .carousel-container {
-        height: 250px !important;
-    }
-    .carousel-caption h2 {
-        font-size: 1.5em !important;
-    }
-    .carousel-caption p {
         font-size: 1em !important;
+        margin-bottom: 4px !important;
     }
 }
 @media (max-width: 600px) {
@@ -378,27 +366,42 @@
     }
     .card-grid, .category-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-        gap: 8px !important;
+        gap: 10px !important;
+        margin-bottom: 15px !important;
     }
     .card img, .category-card img {
-        height: 80px !important;
+        height: 100px !important;
     }
     .card, .category-card {
         min-height: 180px !important;
     }
+    .card-content {
+        padding: 8px !important;
+    }
     .card-title {
         font-size: 0.9em !important;
+        margin-bottom: 4px !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        box-orient: vertical !important;
+        overflow: hidden !important;
     }
     .card-description {
         font-size: 0.75em !important;
+        margin-bottom: 4px !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
     }
-    .card-meta {
+    .card-region {
         font-size: 0.7em !important;
     }
-    .category-recipe-name {
-        font-size: 0.75em !important;
-        padding: 4px 6px 6px 6px !important;
-        margin: 0 6px 6px 6px !important;
+    .rating-container {
+        padding: 4px 6px !important;
+    }
+    .rating-text {
+        font-size: 0.7em !important;
     }
     .favorite-btn {
         width: 28px !important;
@@ -565,10 +568,10 @@
 }
 
 .card-content {
-    padding: 0 22px 22px 22px !important;
-    flex: 1 !important;
+    padding: 12px !important;
     display: flex !important;
     flex-direction: column !important;
+    flex: 1 !important;
 }
 
 .card-title {
@@ -598,8 +601,13 @@
     font-size: 0.85em !important;
     color: #6c757d !important;
     line-height: 1.4 !important;
-    margin-bottom: 12px !important;
-    flex: 1 !important;
+    margin-bottom: 8px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    box-orient: vertical !important;
+    overflow: hidden !important;
 }
 
 .card-meta {
@@ -853,4 +861,3 @@
         transform: translateY(0) !important;
     }
 }
-

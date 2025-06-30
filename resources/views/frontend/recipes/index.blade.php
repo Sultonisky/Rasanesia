@@ -33,7 +33,17 @@
             @foreach ($recipes as $recipe)
                 <div class="card">
                     <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
-                        <img src="{{ asset($recipe->foto) }}" alt="{{ $recipe->name }}">
+                        @php
+                            $foto = $recipe->foto;
+                            if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                                $fotoUrl = $foto;
+                            } elseif ($foto) {
+                                $fotoUrl = asset('storage/' . $foto);
+                            } else {
+                                $fotoUrl = asset('assets/img/chef_hat.png');
+                            }
+                        @endphp
+                        <img src="{{ $fotoUrl }}" alt="{{ $recipe->name }}">
 
                         <div class="card-content">
                             <div class="card-title">{{ $recipe->name }}</div>

@@ -124,4 +124,19 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
+
+    // Tampilkan user yang dihapus (soft deleted)
+    public function trashed()
+    {
+        $users = User::onlyTrashed()->get();
+        return view('backend.users.trashed', compact('users'));
+    }
+
+    // Restore user yang dihapus
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route('users.index')->with('success', 'User berhasil direstore.');
+    }
 }

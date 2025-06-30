@@ -50,8 +50,17 @@
         @foreach ($latestRecipes as $recipe)
             <div class="card">
                 <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
-                    <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}"
-                        style="height:160px;width:100%;object-fit:cover;">
+                    @php
+                        $foto = $recipe->foto;
+                        if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                            $fotoUrl = $foto;
+                        } elseif ($foto) {
+                            $fotoUrl = asset('storage/' . $foto);
+                        } else {
+                            $fotoUrl = asset('assets/img/chef_hat.png');
+                        }
+                    @endphp
+                    <img src="{{ $fotoUrl }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
                     <div class="card-content">
                         <div class="card-title">{{ $recipe->name }}</div>
                         <div class="card-region">
@@ -80,8 +89,17 @@
         @foreach ($bestRatedRecipes as $recipe)
             <div class="card">
                 <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
-                    <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}"
-                        style="height:160px;width:100%;object-fit:cover;">
+                    @php
+                        $foto = $recipe->foto;
+                        if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                            $fotoUrl = $foto;
+                        } elseif ($foto) {
+                            $fotoUrl = asset('storage/' . $foto);
+                        } else {
+                            $fotoUrl = asset('assets/img/chef_hat.png');
+                        }
+                    @endphp
+                    <img src="{{ $fotoUrl }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
                     <div class="card-content">
                         <div class="card-title">{{ $recipe->name }}</div>
                         <div class="card-region">
@@ -129,8 +147,17 @@
         @foreach ($recipesByProvince as $province => $recipe)
             <div class="category-card">
                 <a href="{{ route('recipe.show', $recipe->id) }}" class="category-link">
-                    <img src="{{ $recipe->foto }}" alt="{{ $recipe->name }}"
-                        style="height:160px;width:100%;object-fit:cover;">
+                    @php
+                        $foto = $recipe->foto;
+                        if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                            $fotoUrl = $foto;
+                        } elseif ($foto) {
+                            $fotoUrl = asset('storage/' . $foto);
+                        } else {
+                            $fotoUrl = asset('assets/img/chef_hat.png');
+                        }
+                    @endphp
+                    <img src="{{ $fotoUrl }}" alt="{{ $recipe->name }}" style="height:160px;width:100%;object-fit:cover;">
                     <div class="category-title">{{ $province }}</div>
                     <div class="category-recipe-name">{{ $recipe->name }}</div>
                 </a>

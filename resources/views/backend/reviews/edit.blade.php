@@ -7,7 +7,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('reviews.update', $review->id) }}" method="POST">
+            <form action="{{ route('admin.reviews.update', $review->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('reviews.index') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('admin.reviews.index') }}" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Update Review</button>
                 </div>
             </form>

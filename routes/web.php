@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminFavoriteController;
 use App\Http\Controllers\FrontendRecipeController;
 use App\Http\Controllers\FrontendReviewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,11 +65,24 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     // routes/web.php
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('users/trashed', [UserController::class, 'trashed'])->name('users.trashed');
+    Route::post('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
     Route::resource('users', UserController::class);
-    Route::resource('admin/recipes', RecipeController::class)->names('admin.recipes'); // Backend RecipeController untuk admin
-    Route::resource('reviews', ReviewController::class);
+
+    // Pindahkan route custom ke atas sebelum resource
+    Route::get('admin/recipes/trashed', [RecipeController::class, 'trashed'])->name('admin.recipes.trashed');
+    Route::post('admin/recipes/{id}/restore', [RecipeController::class, 'restore'])->name('admin.recipes.restore');
+    Route::resource('admin/recipes', RecipeController::class)->names('admin.recipes');
+
+    Route::get('admin/reviews/trashed', [ReviewController::class, 'trashed'])->name('admin.reviews.trashed');
+    Route::post('admin/reviews/{id}/restore', [ReviewController::class, 'restore'])->name('admin.reviews.restore');
+    Route::resource('admin/reviews', ReviewController::class)->names('admin.reviews');
+
+    
     Route::get('/admin/profile', [DashboardController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/update', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
+    Route::get('admin-favorites/trashed', [AdminFavoriteController::class, 'trashed'])->name('admin.favorites.trashed');
+    Route::post('admin-favorites/{id}/restore', [AdminFavoriteController::class, 'restore'])->name('admin.favorites.restore');
     Route::resource('admin-favorites', AdminFavoriteController::class)->names([
         'index' => 'admin.favorites.index',
         'create' => 'admin.favorites.create',
@@ -78,6 +92,7 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
         'update' => 'admin.favorites.update',
         'destroy' => 'admin.favorites.destroy',
     ]);
+    
 });
 
 // ROUTE USER - Memerlukan autentikasi user
@@ -89,15 +104,14 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::put('/profile/update', [HomeController::class, 'updateProfile'])->name('profile.update');
     Route::get('/archive', [HomeController::class, 'archive'])->name('archive');
 
-    // Frontend Recipe Routes untuk User
-    Route::resource('frontend-recipes', FrontendRecipeController::class)->names([
-        'create' => 'recipes.create',
-        'store' => 'recipes.store',
-        'edit' => 'recipes.edit',
-        'update' => 'recipes.update',
-        'destroy' => 'recipes.destroy',
-    ]);
+    // Frontend Recipe Routes untuk User (tanpa resource, satu-satu)
+    Route::get('frontend-recipes/create', [FrontendRecipeController::class, 'create'])->name('recipes.create');
+    Route::post('frontend-recipes', [FrontendRecipeController::class, 'store'])->name('recipes.store');
+    Route::get('frontend-recipes/{recipe}/edit', [FrontendRecipeController::class, 'edit'])->name('recipes.edit');
+    Route::put('frontend-recipes/{recipe}', [FrontendRecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('frontend-recipes/{recipe}', [FrontendRecipeController::class, 'destroy'])->name('recipes.destroy');
     Route::get('/my-recipes', [FrontendRecipeController::class, 'myRecipes'])->name('my-recipes');
+    Route::get('/recipes/{recipe}', [FrontendRecipeController::class, 'show'])->name('recipes.show');
 
     // Saved page
     Route::get('/saved', [FavoriteController::class, 'index'])->name('saved');

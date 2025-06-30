@@ -40,7 +40,7 @@ class RecipeController extends Controller
 
         Recipe::create($data);
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil ditambahkan.');
+        return redirect()->route('admin.recipes.index')->with('success', 'Resep berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -76,7 +76,7 @@ class RecipeController extends Controller
 
         $recipe->update($data);
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil diperbarui.');
+        return redirect()->route('admin.recipes.index')->with('success', 'Resep berhasil diperbarui.');
     }
 
     public function destroy(Recipe $recipe)
@@ -87,6 +87,19 @@ class RecipeController extends Controller
 
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil dihapus.');
+        return redirect()->route('admin.recipes.index')->with('success', 'Resep berhasil dihapus.');
+    }
+
+    public function trashed()
+    {
+        $recipes = Recipe::onlyTrashed()->get();
+        return view('backend.recipes.trashed', compact('recipes'));
+    }
+
+    public function restore($id)
+    {
+        $recipe = Recipe::onlyTrashed()->findOrFail($id);
+        $recipe->restore();
+        return redirect()->route('admin.recipes.index')->with('success', 'Resep berhasil direstore.');
     }
 }

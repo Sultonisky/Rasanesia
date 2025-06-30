@@ -8,11 +8,12 @@
     <h1 class="h3 mb-2 text-gray-800">Data Review</h1>
     <p class="mb-4">Halaman ini menampilkan seluruh ulasan pengguna terhadap resep.</p>
 
+    <a href="{{ route('admin.reviews.trashed') }}" class="btn btn-warning mb-3">Lihat Review Terhapus</a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Daftar Review</h6>
-            <a href="{{ route('reviews.create') }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('admin.reviews.create') }}" class="btn btn-sm btn-primary">
                 <i class="fas fa-plus"></i> Tambah Review
             </a>
         </div>
@@ -43,10 +44,10 @@
                                 </td>
                                 <td>{{ Str::limit($review->comment, 60) }}</td>
                                 <td>
-                                    <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.reviews.show', $review->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

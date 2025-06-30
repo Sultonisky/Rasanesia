@@ -5,17 +5,18 @@
 
     <form id="formCreateUser" action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        
+
         <div class="row">
             <!-- Foto Preview -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow">
                     <div class="card-body text-center">
                         <h5 class="mb-3">Foto Profil</h5>
-                        <img src="https://ui-avatars.com/api/?name=User&size=300" class="img-thumbnail foto-preview"
+                        <img id="user-foto-preview" src="https://ui-avatars.com/api/?name=User&size=300" class="foto-preview"
                             style="width: 100%; max-height: 300px; object-fit: cover;" alt="Preview Foto">
 
-                        <input type="file" name="foto" class="form-control mt-3" onchange="previewFoto()" accept="image/*">
+                        <input type="file" name="foto" class="form-control mt-3" onchange="previewFoto()"
+                            accept="image/*">
                         <small class="text-muted">Opsional, bisa ditambahkan nanti.</small>
                     </div>
                 </div>

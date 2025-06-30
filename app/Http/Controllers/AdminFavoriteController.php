@@ -115,4 +115,17 @@ class AdminFavoriteController extends Controller
 
         return redirect()->route('admin.favorites.index')->with('success', 'Favorit berhasil dihapus.');
     }
+
+    public function trashed()
+    {
+        $favorites = Favorite::onlyTrashed()->get();
+        return view('backend.favorites.trashed', compact('favorites'));
+    }
+
+    public function restore($id)
+    {
+        $favorite = Favorite::onlyTrashed()->findOrFail($id);
+        $favorite->restore();
+        return redirect()->route('admin.favorites.index')->with('success', 'Favorit berhasil direstore.');
+    }
 }

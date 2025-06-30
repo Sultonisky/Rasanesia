@@ -3,6 +3,7 @@
 @section('contents')
     <h1 class="h3 mb-2 text-gray-800">Data Favorites</h1>
     <p class="mb-4">Halaman ini menampilkan seluruh data favorit resep pengguna.</p>
+    <a href="{{ route('admin.favorites.trashed') }}" class="btn btn-warning mb-3">Lihat Favorite Terhapus</a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">

@@ -15,18 +15,18 @@
                         <h5 class="mb-3">Foto Profil</h5>
                         @if ($user->foto)
                             @if (Str::startsWith($user->foto, ['http://', 'https://']))
-                                <img src="{{ $user->foto }}" 
+                                <img id="user-foto-preview" src="{{ $user->foto }}" 
                                     class="img-thumbnail foto-preview" 
                                     style="width: 100%; max-height: 300px; object-fit: cover;"
                                     alt="Preview Foto">
                             @else
-                                <img src="{{ asset('storage/' . $user->foto) }}" 
+                                <img id="user-foto-preview" src="{{ asset('storage/' . $user->foto) }}" 
                                     class="img-thumbnail foto-preview" 
                                     style="width: 100%; max-height: 300px; object-fit: cover;"
                                     alt="Preview Foto">
                             @endif
                         @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&size=300" 
+                            <img id="user-foto-preview" src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&size=300" 
                                 class="img-thumbnail foto-preview" 
                                 style="width: 100%; max-height: 300px; object-fit: cover;"
                                 alt="Preview Foto">

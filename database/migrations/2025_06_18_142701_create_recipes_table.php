@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->text('foto')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

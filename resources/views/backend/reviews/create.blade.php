@@ -7,7 +7,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('reviews.store') }}" method="POST">
+            <form action="{{ route('admin.reviews.store') }}" method="POST">
                 @csrf
 
                 <div class="form-group">
@@ -63,7 +63,7 @@
                     @enderror
                 </div>
 
-                <a href="{{ route('reviews.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('admin.reviews.index') }}" class="btn btn-secondary">Kembali</a>
                 <button type="submit" class="btn btn-primary">Simpan Review</button>
             </form>
         </div>
