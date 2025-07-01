@@ -78,9 +78,9 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::post('admin/reviews/{id}/restore', [ReviewController::class, 'restore'])->name('admin.reviews.restore');
     Route::resource('admin/reviews', ReviewController::class)->names('admin.reviews');
 
-    
+
     Route::get('/admin/profile', [DashboardController::class, 'profile'])->name('admin.profile');
-    Route::post('/admin/profile/update', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
+    Route::put('/admin/profile/update', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
     Route::get('admin-favorites/trashed', [AdminFavoriteController::class, 'trashed'])->name('admin.favorites.trashed');
     Route::post('admin-favorites/{id}/restore', [AdminFavoriteController::class, 'restore'])->name('admin.favorites.restore');
     Route::resource('admin-favorites', AdminFavoriteController::class)->names([
@@ -92,7 +92,6 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
         'update' => 'admin.favorites.update',
         'destroy' => 'admin.favorites.destroy',
     ]);
-    
 });
 
 // ROUTE USER - Memerlukan autentikasi user

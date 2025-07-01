@@ -4,6 +4,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/all-recipes.css') }}">
 @endsection
 
 @section('content')
@@ -35,7 +36,11 @@
                     <a href="{{ route('recipe.show', $recipe->id) }}" class="card-link">
                         @php
                             $foto = $recipe->foto;
-                            if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                            if (
+                                $foto &&
+                                (\Illuminate\Support\Str::startsWith($foto, 'http://') ||
+                                    \Illuminate\Support\Str::startsWith($foto, 'https://'))
+                            ) {
                                 $fotoUrl = $foto;
                             } elseif ($foto) {
                                 $fotoUrl = asset('storage/' . $foto);

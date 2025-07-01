@@ -60,7 +60,7 @@ class DashboardController extends Controller
             }
 
             // Simpan foto baru
-            $validated['foto'] = $request->file('foto')->store('profile_photos');
+            $validated['foto'] = $request->file('foto')->store('profile_photos', 'public');
         }
 
         $user->update($validated);

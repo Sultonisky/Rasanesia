@@ -65,7 +65,7 @@
     <div class="card shadow mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Review Terbaru</h6>
-            <a href="{{ route('reviews.index') }}" class="btn btn-sm btn-secondary">Lihat Semua</a>
+            <a href="{{ route('admin.reviews.index') }}" class="btn btn-sm btn-secondary">Lihat Semua</a>
         </div>
         <div class="card-body p-0">
             <ul class="list-group list-group-flush">

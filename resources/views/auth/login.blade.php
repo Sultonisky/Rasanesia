@@ -13,7 +13,8 @@
 <body>
     <div class="login-bg">
         @if (session('message'))
-            <div class="alert-success" style="
+            <div class="alert-success"
+                style="
                 margin: 0 auto 18px auto;
                 font-weight: 600;
                 font-size: 1.05rem;
@@ -34,18 +35,22 @@
         @endif
         <form action="{{ route('loginAction') }}" method="POST" class="login-form" autocomplete="on">
             @csrf
-            <img src="{{ asset('assets/img/chef_hat.png') }}" width="75" alt="Logo Chef Hat" style="margin-bottom: 10px;">
+            <img src="{{ asset('assets/img/chef_hat.png') }}" width="75" alt="Logo Chef Hat"
+                style="margin-bottom: 10px;">
             <h2 class="login-title">Masuk ke Rasanesia</h2>
             <div class="container">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email" required autofocus value="{{ old('email') }}">
+                <input type="email" id="email" name="email" placeholder="Email" required autofocus
+                    value="{{ old('email') }}">
                 @error('email')
-                    <div class="alert-error">&#9888; {{ $message }}<span class="close-alert" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    <div class="alert-error">&#9888; {{ $message }}<span class="close-alert"
+                            onclick="this.parentElement.style.display='none';">&times;</span></div>
                 @enderror
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Password" required>
                 @error('password')
-                    <div class="alert-error">&#9888; {{ $message }}<span class="close-alert" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    <div class="alert-error">&#9888; {{ $message }}<span class="close-alert"
+                            onclick="this.parentElement.style.display='none';">&times;</span></div>
                 @enderror
             </div>
             <div class="container">
