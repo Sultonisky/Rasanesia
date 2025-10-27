@@ -1,69 +1,403 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍜 Rasanesia - Recipe Sharing Platform
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-10.x-red.svg" alt="Laravel">
+  <img src="https://img.shields.io/badge/PHP-8.1+-blue.svg" alt="PHP">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>A comprehensive recipe sharing and management platform built with Laravel</strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Table of Contents
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [About](#about)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🎯 About
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Rasanesia** is a full-featured recipe sharing platform that allows users to discover, create, and share their favorite Indonesian recipes. The platform features user authentication, recipe management, review and rating systems, favorites functionality, and admin dashboard for content management.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Key Highlights
 
-## Laravel Sponsors
+- 📱 **User-Friendly Interface** - Modern, responsive design for seamless experience
+- 🔐 **Secure Authentication** - Complete authentication with email verification
+- ⭐ **Review & Rating System** - Users can rate and review recipes
+- 💾 **Favorites Management** - Save and organize favorite recipes
+- 📊 **Admin Dashboard** - Full administrative control
+- 📄 **PDF Export** - Download recipes as PDF
+- 📥 **Excel Import** - Bulk import recipes from Excel
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+---
 
-### Premium Partners
+## ✨ Features
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Public Features
+- 🏠 **Homepage** - Browse all recipes without registration
+- 🔍 **Search Functionality** - Search recipes by name, description, or province
+- 📖 **Recipe Detail** - View complete recipe information with ingredients and steps
+- 👀 **Public Access** - View recipes without logging in
 
-## Contributing
+### User Features
+- 👤 **User Registration & Login** - Secure authentication system
+- ✉️ **Email Verification** - Verify email addresses
+- 🔑 **Password Reset** - Forgot password functionality
+- 📝 **Create & Manage Recipes** - Add, edit, and delete your own recipes
+- ⭐ **Review Recipes** - Leave reviews and ratings (1-5 stars)
+- ❤️ **Favorite Recipes** - Save recipes to favorites
+- 📄 **Export to PDF** - Download recipe as PDF
+- 🖼️ **Profile Management** - Update profile with photo
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Admin Features
+- 🎛️ **Dashboard** - Overview of all system data
+- 👥 **User Management** - Create, read, update, delete users
+- 🍜 **Recipe Management** - Full CRUD operations for recipes
+- 💬 **Review Management** - Manage user reviews
+- ❤️ **Favorites Management** - View and manage favorites
+- 📥 **Excel Import** - Import recipes from Excel files
+- 🗑️ **Soft Delete** - Restore deleted items
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠️ Tech Stack
 
-## Security Vulnerabilities
+### Backend
+- **Laravel 10.x** - PHP web framework
+- **PHP 8.1+** - Programming language
+- **MySQL** - Database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Frontend
+- **Blade Templating** - Laravel's templating engine
+- **Vite** - Build tool and development server
+- **Axios** - HTTP client
+- **Bootstrap** - CSS framework
+- **Custom CSS** - Styled components
 
-## License
+### Key Packages
+- `barryvdh/laravel-dompdf` - PDF generation
+- `maatwebsite/excel` - Excel import/export
+- `laravel/sanctum` - API authentication
+- `laravel/tinker` - REPL for Laravel
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 📋 Requirements
+
+### Server Requirements
+- PHP >= 8.1
+- Composer
+- MySQL >= 5.7 or MariaDB >= 10.3
+- Node.js >= 16.x and NPM
+- Web server (Apache/Nginx)
+
+### PHP Extensions
+- OpenSSL
+- PDO
+- Mbstring
+- Tokenizer
+- XML
+- Ctype
+- JSON
+- BCMath
+
+---
+
+## 🚀 Installation
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/yourusername/rasanesia-project.git
+cd rasanesia-project
+```
+
+### 2. Install Dependencies
+
+Install PHP dependencies via Composer:
+
+```bash
+composer install
+```
+
+Install JavaScript dependencies:
+
+```bash
+npm install
+```
+
+### 3. Environment Configuration
+
+Copy the environment configuration file:
+
+```bash
+cp .env.example .env
+```
+
+Generate application key:
+
+```bash
+php artisan key:generate
+```
+
+Edit `.env` file and configure:
+- Database connection
+- Mail configuration
+- Application URL
+
+### 4. Database Setup
+
+Create a database and update `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=rasanesia
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Run migrations and seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+### 5. Storage Link
+
+Create symbolic link for storage:
+
+```bash
+php artisan storage:link
+```
+
+### 6. Build Assets
+
+For development:
+```bash
+npm run dev
+```
+
+For production:
+```bash
+npm run build
+```
+
+### 7. Start Development Server
+
+```bash
+php artisan serve
+```
+
+Visit `http://localhost:8000` in your browser.
+
+---
+
+## ⚙️ Configuration
+
+### Mail Configuration
+
+Update `.env` for email functionality:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your-email@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+### File Uploads
+
+- Maximum upload size: `2048kb` (configure in `php.ini`)
+- Allowed extensions: Images (jpg, jpeg, png, gif)
+- Storage: `storage/app/public/profile_photos`
+
+---
+
+## 📖 Usage
+
+### Default Admin Account
+
+After running seeders:
+
+```
+Email: admin@rasanesia.com
+Password: password
+```
+
+### Import Recipes from Excel
+
+1. Prepare Excel file with columns: name, description, ingredients, steps, province
+2. Place file in `storage/app/`
+3. Run in Tinker:
+
+```bash
+php artisan tinker
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RecipesImport;
+Excel::import(new RecipesImport, 'RESEP AMEL.xlsx');
+```
+
+### User Roles
+
+- **Admin**: Full access to dashboard and management
+- **User**: Can create recipes, reviews, and favorites
+
+---
+
+## 📁 Project Structure
+
+```
+rasanesia-project/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/       # Application controllers
+│   │   └── Middleware/         # Custom middleware
+│   ├── Models/                 # Eloquent models
+│   ├── Imports/                # Excel import classes
+│   └── Notifications/          # Email notifications
+├── database/
+│   ├── migrations/             # Database migrations
+│   ├── seeders/                # Database seeders
+│   └── factories/              # Model factories
+├── public/
+│   ├── assets/                 # Frontend assets (CSS, JS, images)
+│   └── admin_assets/           # Admin panel assets
+├── resources/
+│   ├── views/
+│   │   ├── frontend/           # Frontend views
+│   │   ├── backend/            # Admin views
+│   │   └── auth/               # Authentication views
+│   ├── css/                    # CSS source files
+│   └── js/                     # JavaScript source files
+├── routes/
+│   ├── web.php                 # Web routes
+│   └── api.php                 # API routes
+└── storage/
+    └── app/                    # Application storage
+```
+
+---
+
+## 🚀 Deployment
+
+### Deployment Steps
+
+1. **Update Environment**
+
+```bash
+# Edit production .env
+cp .env.example .env
+# Configure database, mail, etc.
+```
+
+2. **Install Dependencies**
+
+```bash
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+```
+
+3. **Generate Key & Optimize**
+
+```bash
+php artisan key:generate
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+4. **Run Migrations**
+
+```bash
+php artisan migrate --force
+```
+
+5. **Set Permissions**
+
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+6. **Configure Web Server**
+
+Point document root to `public/` directory.
+
+### Maintenance Mode
+
+```bash
+# Enable
+php artisan down
+
+# Disable
+php artisan up
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Authors
+
+- **Your Team** - *Initial work* - [GitHub](https://github.com/yourusername)
+
+---
+
+## 🙏 Acknowledgments
+
+- Laravel framework and community
+- All package contributors
+- Indonesian culinary community
+
+---
+
+## 📞 Contact
+
+For support, email support@rasanesia.com
+
+---
+
+<div align="center">
+  Made with ❤️ using Laravel
+</div>
+
+---
 
 # Rasanesia Project - Laravel Deployment & Maintenance Guide
 

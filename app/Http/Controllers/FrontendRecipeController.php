@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -103,7 +104,19 @@ class FrontendRecipeController extends Controller
         $recipes = Recipe::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(12);
-            
+
         return view('frontend.archive.my-recipes', compact('recipes'));
     }
-} 
+
+    public function downloadPdf(Recipe $recipe)
+    {
+        // Load reviews dengan user untuk rating
+        $recipe->load(['user', 'reviews.user']);
+        
+        $pdf = Pdf::loadView('frontend.recipes.pdf', compact('recipe'))
+            ->setPaper('a4', 'portrait')
+            ->setOption('enable-local-file-access', true);
+            
+        return $pdf->download('resep-' . str_slug($recipe->name) . '.pdf');
+    }
+}

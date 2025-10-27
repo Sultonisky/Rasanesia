@@ -109,6 +109,7 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::get('frontend-recipes/{recipe}/edit', [FrontendRecipeController::class, 'edit'])->name('recipes.edit');
     Route::put('frontend-recipes/{recipe}', [FrontendRecipeController::class, 'update'])->name('recipes.update');
     Route::delete('frontend-recipes/{recipe}', [FrontendRecipeController::class, 'destroy'])->name('recipes.destroy');
+    Route::get('/recipes/{recipe}/download-pdf', [FrontendRecipeController::class, 'downloadPdf'])->name('recipes.downloadPdf');
     Route::get('/my-recipes', [FrontendRecipeController::class, 'myRecipes'])->name('my-recipes');
     Route::get('/recipes/{recipe}', [FrontendRecipeController::class, 'show'])->name('recipes.show');
 
@@ -149,3 +150,5 @@ Route::get('/email/verify-public/{id}/{hash}', function ($id, $hash, Request $re
     event(new Verified($user));
     return redirect()->route('login')->with('message', 'Email berhasil diverifikasi! Silakan login.');
 })->name('verification.verify.public');
+
+Route::middleware(['auth', 'verified'])->group(function () {});

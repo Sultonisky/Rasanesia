@@ -6,6 +6,7 @@ use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RecipeController extends Controller
 {
@@ -48,6 +49,13 @@ class RecipeController extends Controller
         $recipe = Recipe::with('user')->findOrFail($id);
         return view('backend.recipes.show', compact('recipe'));
     }
+
+    // public function downloadPdf($id)
+    // {
+    //     $recipe = Recipe::findOrFail($id);
+    //     $pdf = Pdf::loadView('recipes.pdf', compact('recipe'));
+    //     return $pdf->download('resep-' . $recipe->id . '.pdf');
+    // }
 
     public function edit(Recipe $recipe)
     {

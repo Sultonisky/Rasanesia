@@ -41,7 +41,11 @@
             <div class="recipe-image-container">
                 @php
                     $foto = $recipe->foto;
-                    if ($foto && (\Illuminate\Support\Str::startsWith($foto, 'http://') || \Illuminate\Support\Str::startsWith($foto, 'https://'))) {
+                    if (
+                        $foto &&
+                        (\Illuminate\Support\Str::startsWith($foto, 'http://') ||
+                            \Illuminate\Support\Str::startsWith($foto, 'https://'))
+                    ) {
                         $fotoUrl = $foto;
                     } elseif ($foto) {
                         $fotoUrl = asset('storage/' . $foto);
@@ -91,6 +95,11 @@
                 </div>
 
                 <div class="action-buttons">
+                    <a href="{{ route('recipes.downloadPdf', $recipe->id) }}" class="btn-download" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </a>
+                    
                     @auth
                         <button class="btn-save {{ auth()->user()->favorites->contains($recipe->id) ? 'saved' : '' }}"
                             onclick="toggleFavorite({{ $recipe->id }})" data-recipe-id="{{ $recipe->id }}">

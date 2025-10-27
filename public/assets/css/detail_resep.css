@@ -111,7 +111,7 @@
     flex-wrap: wrap;
 }
 
-.btn-save, .btn-review {
+.btn-save, .btn-review, .btn-download {
     padding: 12px 24px;
     border: none;
     border-radius: 10px;
@@ -154,6 +154,17 @@
     background: #e9ecef;
     border-color: #a3b48b;
     transform: translateY(-2px);
+}
+
+.btn-download {
+    background: #2980b9;
+    color: white;
+}
+
+.btn-download:hover {
+    background: #21618c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
 }
 
 .recipe-content {

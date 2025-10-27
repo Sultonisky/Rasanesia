@@ -205,11 +205,12 @@ class HomeController extends Controller
                 ->orWhere('ingredients', 'like', "%{$query}%")
                 ->orWhere('province', 'like', "%{$query}%")
                 ->whereNotNull('foto')
+                ->whereRaw("LENGTH(TRIM(foto)) > 0")
                 ->where('foto', '!=', '')
                 ->get();
         }
         
-        return view('frontend.search.index', compact('recipes', 'query'));
+        return view('frontend.home.search', compact('recipes', 'query'));
     }
 
     public function allRecipes()

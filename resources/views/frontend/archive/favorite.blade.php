@@ -56,9 +56,10 @@
 @push('scripts')
     <script>
         function removeFavorite(recipeId) {
+            console.log('Klik heart untuk recipe id:', recipeId);
             const button = document.querySelector(`button[data-recipe-id="${recipeId}"]`);
             button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            button.innerHTML = '<i class="far fa-heart"></i>';
 
             fetch('{{ route('favorites.destroy') }}', {
                     method: 'DELETE',
@@ -73,10 +74,12 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        button.closest('.card').remove();
-                        if (document.querySelectorAll('.card').length === 0) {
-                            location.reload();
-                        }
+                        setTimeout(() => {
+                            button.closest('.card').remove();
+                            if (document.querySelectorAll('.card').length === 0) {
+                                location.reload();
+                            }
+                        }, 300);
                     } else {
                         alert('Gagal menghapus favorit.');
                         button.innerHTML = '<i class="fas fa-heart text-danger"></i>';

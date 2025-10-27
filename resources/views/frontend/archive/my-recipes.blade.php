@@ -116,7 +116,7 @@ function closeDeleteModal() {
 function confirmDelete() {
     if (window.recipeToDelete) {
         const form = document.getElementById('deleteForm');
-        form.action = /recipes/${window.recipeToDelete};
+        form.action = `/frontend-recipes/${window.recipeToDelete}`;
         form.submit();
     }
 }
